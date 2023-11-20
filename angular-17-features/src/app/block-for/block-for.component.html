@@ -1,0 +1,9 @@
+<p>block-for works!</p>
+
+<ul>
+    @for (item of items; track item) {
+    <li>{{ item }}</li>
+    } @empty {
+    <li>No items...</li>
+    }
+</ul>

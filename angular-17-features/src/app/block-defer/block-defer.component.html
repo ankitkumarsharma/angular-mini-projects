@@ -1,0 +1,15 @@
+<p>block-defer works!</p>
+
+@defer (when true) {
+    <!--showed if data is loaded-->
+    <p>Data is loaded</p>
+} @loading {
+    <!--showed during the loading of the data-->
+    <p>Loading…</p>
+  } @error {
+    <!--showed if an error happen during loading-->
+    <p>Loading failed</p>
+  } @placeholder {
+    <!--showed until the data not begin to load-->
+    <img src="data-placeholder.png" alt="">
+}
