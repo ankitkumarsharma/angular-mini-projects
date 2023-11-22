@@ -1,1 +1,99 @@
-<p>reactive-form-crud works!</p>
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="ak-sub-title">Form</h4>
+                <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+                    <div class="form-group mb-3 row">
+                        <label class="col">Name</label>
+                        <div class="col">
+                            <input [ngClass]="{'is-invalid': getNameError()}" type="text" class="form-control"
+                                formControlName="name">
+                            @if (getNameError()) {
+                            <div>
+                                @if (getNameRequiredError()) {
+                                <span class="error">{{requiredErrorDescription('Name')}}</span>
+                                }
+                            </div>
+                            }
+                        </div>
+                    </div>
+                    <div class="form-group mb-3 row">
+                        <label class="col">Email Id</label>
+                        <div class="col">
+                            <input [ngClass]="{'is-invalid': getEmailError()}" type="text" class="form-control"
+                                formControlName="email">
+                            @if (getEmailError()) {
+                            <div>
+                                @if (getEmailRequiredError()) {
+                                <span class="error">{{requiredErrorDescription('Email Id')}}</span>
+                                }
+                                @if (getEmailFormatError()) {
+                                <span class="error">Email Format is required</span>
+                                }
+                            </div>
+                            }
+                        </div>
+                    </div>
+                    <div class="form-group mb-3 row">
+                        <label class="col">Mobile Number</label>
+                        <div class="col">
+                            <input [ngClass]="{'is-invalid': getMobileError()}" type="text" class="form-control"
+                                formControlName="mobile">
+                            @if (getMobileError()) {
+                            <div>
+                                @if (getMobileRequiredError()) {
+                                <span class="error">{{requiredErrorDescription('Mobile Number')}}</span>
+                                }
+                                @if (getMobileMaxLengthError()) {
+                                <span class="error">Max Mobile Number length is 10</span>
+                                }
+                            </div>
+                            }
+                        </div>
+                    </div>
+                    <div class="form-group mb-3 row">
+                        <label class="col">Password</label>
+                        <div class="col">
+                            <input [ngClass]="{'is-invalid': getPasswordError()}" type="text" class="form-control"
+                                formControlName="password">
+                            @if (getPasswordError()) {
+                            <div>
+                                @if (getPasswordRequiredError()) {
+                                <span class="error">{{requiredErrorDescription('Password')}}</span>
+                                }
+                            </div>
+                            }
+                        </div>
+                    </div>
+                    <div class="form-group mb-3 row">
+                        <label class="col">Confirm Password</label>
+                        <div class="col">
+                            <input [ngClass]="{'is-invalid': getConfirmPasswordError()}" type="text" class="form-control"
+                                formControlName="confirmPassword">
+                            @if (getConfirmPasswordError()) {
+                            <div>
+                                @if (getConfirmPasswordRequiredError()) {
+                                <span class="error">{{requiredErrorDescription('Confirm Password')}}</span>
+                                }
+                            </div>
+                            }
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <ul class="list-inline">
+                                <li class="list-inline-item">
+                                    <button type="submit" class="primary-btn">Submit</button>
+                                </li>
+                                <li class="list-inline-item">
+                                    <button type="button" (click)="resetForm()" class="secondary-btn">Reset</button>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
