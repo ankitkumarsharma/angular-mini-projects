@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-md-6">
+    <div class="col">
         <div class="card">
             <div class="card-body">
                 <h4 class="ak-sub-title">Form</h4>
@@ -38,15 +38,12 @@
                     <div class="form-group mb-3 row">
                         <label class="col">Mobile Number</label>
                         <div class="col">
-                            <input [ngClass]="{'is-invalid': getMobileError()}" type="text" class="form-control"
+                            <input [ngClass]="{'is-invalid': getMobileError()}" type="number" class="form-control"
                                 formControlName="mobile">
                             @if (getMobileError()) {
                             <div>
                                 @if (getMobileRequiredError()) {
                                 <span class="error">{{requiredErrorDescription('Mobile Number')}}</span>
-                                }
-                                @if (getMobileMaxLengthError()) {
-                                <span class="error">Max Mobile Number length is 10</span>
                                 }
                             </div>
                             }
@@ -69,8 +66,8 @@
                     <div class="form-group mb-3 row">
                         <label class="col">Confirm Password</label>
                         <div class="col">
-                            <input [ngClass]="{'is-invalid': getConfirmPasswordError()}" type="text" class="form-control"
-                                formControlName="confirmPassword">
+                            <input [ngClass]="{'is-invalid': getConfirmPasswordError()}" type="text"
+                                class="form-control" formControlName="confirmPassword">
                             @if (getConfirmPasswordError()) {
                             <div>
                                 @if (getConfirmPasswordRequiredError()) {
@@ -84,7 +81,11 @@
                         <div class="col">
                             <ul class="list-inline">
                                 <li class="list-inline-item">
+                                    @if (!editFlag) {
                                     <button type="submit" class="primary-btn">Submit</button>
+                                    } @else {
+                                    <button (click)="onUpdate()" type="button" class="primary-btn">Update</button>
+                                    }
                                 </li>
                                 <li class="list-inline-item">
                                     <button type="button" (click)="resetForm()" class="secondary-btn">Reset</button>
@@ -93,6 +94,48 @@
                         </div>
                     </div>
                 </form>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="ak-sub-title">Table</h4>
+                <div class="table-responsive">
+                    <table class="table">
+                        <tr>
+                            <th>Sr.No.</th>
+                            <th>Name</th>
+                            <th>Email Id</th>
+                            <th>Mobile No.</th>
+                            <th>Action</th>
+                        </tr>
+                        @for (item of tableData; track $index) {
+                        <tr>
+                            <td>{{$index+1}}</td>
+                            <td>{{item.name}}</td>
+                            <td>{{item.email}}</td>
+                            <td>{{item.mobile}}</td>
+                            <td>
+                                <ul class="list-inline">
+                                    <li class="list-inline-item">
+                                        <a (click)="onEdit($index)">Edit</a>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <a (click)="onDelete($index)" class="trash">Delete</a>
+                                    </li>
+                                </ul>
+                            </td>
+                        </tr>
+                        } @empty {
+                        <tr>
+                            <td>
+                                <p class="error">No Data</p>
+                            </td>
+                        </tr>
+                        }
+                    </table>
+                </div>
             </div>
         </div>
     </div>

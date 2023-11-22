@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
+import { ProfileFormValueModel } from './core/reactive-form-crud.models';
 
 @Component({
   selector: 'app-reactive-form-crud',
@@ -12,60 +13,98 @@ import { ToastrModule } from 'ngx-toastr';
 })
 export class ReactiveFormCrudComponent {
   profileForm = new FormGroup({
-    name : new FormControl('', Validators.required),
-    mobile : new FormControl('', (Validators.required, Validators.max(10))),
-    email : new FormControl('', (Validators.required, Validators.email)),
+    name: new FormControl('', Validators.required),
+    mobile: new FormControl('', Validators.required),
+    email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', Validators.required),
     confirmPassword: new FormControl('', Validators.required),
   });
 
-  submitted!:boolean;
+  submitted!: boolean;
+  tableData: ProfileFormValueModel[] = [];
+  editFlag!: boolean;
+  editIndex!: number;
+
   // name error methods
-  getNameError(){
+  getNameError() {
     return this.submitted && this.profileForm.controls.name.errors
   }
-  getNameRequiredError(){
+  getNameRequiredError() {
     return this.submitted && this.profileForm.controls.name.hasError('required');
   }
   // email error methods
-  getEmailError(){
+  getEmailError() {
     return this.submitted && this.profileForm.controls.email.errors
   }
-  getEmailRequiredError(){
+  getEmailRequiredError() {
     return this.submitted && this.profileForm.controls.email.hasError('required');
   }
-  getEmailFormatError(){
+  getEmailFormatError() {
     return this.submitted && this.profileForm.controls.email.hasError('email');
   }
   // mobile error methods
-  getMobileError(){
+  getMobileError() {
     return this.submitted && this.profileForm.controls.mobile.errors
   }
-  getMobileRequiredError(){
+  getMobileRequiredError() {
     return this.submitted && this.profileForm.controls.mobile.hasError('required');
   }
-  getMobileMaxLengthError(){
-    return this.submitted && this.profileForm.controls.mobile.hasError('max');
-  }
   // password error methods
-  getPasswordError(){
+  getPasswordError() {
     return this.submitted && this.profileForm.controls.password.errors
   }
-  getPasswordRequiredError(){
+  getPasswordRequiredError() {
     return this.submitted && this.profileForm.controls.password.hasError('required');
   }
   // confirm Password error methods
-  getConfirmPasswordError(){
+  getConfirmPasswordError() {
     return this.submitted && this.profileForm.controls.confirmPassword.errors
   }
-  getConfirmPasswordRequiredError(){
+  getConfirmPasswordRequiredError() {
     return this.submitted && this.profileForm.controls.confirmPassword.hasError('required');
   }
   // required message label
-  requiredErrorDescription(label:string){
+  requiredErrorDescription(label: string) {
     return `${label} field is required`;
   }
 
-  onSubmit(){}
-  resetForm(){}
+  onSubmit() {
+    this.submitted = true;
+    if (this.profileForm.valid) {
+      this.tableData = [...this.tableData, this.profileForm.value];
+      this.submitted = false;
+      this.profileForm.reset();
+    } else {
+      this.profileForm.markAllAsTouched()
+    }
+  }
+
+  onEdit(index: number) {
+    this.editFlag = true;
+    this.editIndex = index;
+    let updateObj: any;
+    let data: any = this.tableData[index];
+    Object.keys(this.profileForm.value).map((itemParent) => {
+      Object.keys(this.tableData[index]).map((itemChild) => {
+        if (itemParent == itemChild) {
+          updateObj = { ...updateObj, [itemParent]: data[itemParent] }
+        }
+      })
+    })
+    this.profileForm.setValue(updateObj);
+  }
+
+  onUpdate() {
+    this.tableData[this.editIndex] = this.profileForm.value;
+    this.editFlag = false;
+    this.resetForm();
+  }
+  onDelete(index: number) {
+    this.tableData.splice(index, 1);
+  }
+  resetForm() {
+    this.profileForm.reset();
+    this.submitted = false;
+    this.editFlag = false;
+  }
 }

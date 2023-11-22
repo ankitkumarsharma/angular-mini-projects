@@ -1,0 +1,33 @@
+@import '../scss/variable';
+.card{
+  min-height: 285px;
+  .card-body{
+    .table-responsive{
+      .table{
+        width: 100%;
+        tr{
+          td{
+            padding: 5px;
+            ul{
+              li{
+                a{
+                  cursor: pointer;
+                  background: $primaryColor;
+                  padding: 3px;
+                  display: inline-block;
+                  width: 60px;
+                  text-align: center;
+                  color: $whiteColor;
+                  text-decoration: none;
+                  &.trash{
+                    background: $errorColor;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
