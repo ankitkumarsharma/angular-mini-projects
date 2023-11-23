@@ -45,6 +45,9 @@
                                 @if (getMobileRequiredError()) {
                                 <span class="error">{{requiredErrorDescription('Mobile Number')}}</span>
                                 }
+                                @if (getMobilePatternError()) {
+                                <span class="error">Not a valid contact number</span>
+                                }
                             </div>
                             }
                         </div>
@@ -74,6 +77,9 @@
                                 <span class="error">{{requiredErrorDescription('Confirm Password')}}</span>
                                 }
                             </div>
+                            }
+                            @if (getConfirmPasswordNotMatchError()) {
+                            <span class="error">Passwords do not match</span>
                             }
                         </div>
                     </div>

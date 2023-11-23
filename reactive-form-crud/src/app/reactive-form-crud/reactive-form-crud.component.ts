@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, ValidatorFn, Validators } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
 import { ProfileFormValueModel } from './core/reactive-form-crud.models';
+import { REGX_PATTERN } from './core/reactive-form-crud.constant';
 
 @Component({
   selector: 'app-reactive-form-crud',
@@ -12,13 +13,16 @@ import { ProfileFormValueModel } from './core/reactive-form-crud.models';
   styleUrl: './reactive-form-crud.component.scss'
 })
 export class ReactiveFormCrudComponent {
+  mobileNumberValidation: string = REGX_PATTERN.mobileNumberValidation;
   profileForm = new FormGroup({
     name: new FormControl('', Validators.required),
-    mobile: new FormControl('', Validators.required),
+    mobile: new FormControl('', [Validators.required, Validators.pattern(this.mobileNumberValidation)]),
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', Validators.required),
     confirmPassword: new FormControl('', Validators.required),
-  });
+  },
+    { validators: this.confirmPasswordValidator('password', 'confirmPassword') }
+  );
 
   submitted!: boolean;
   tableData: ProfileFormValueModel[] = [];
@@ -49,6 +53,9 @@ export class ReactiveFormCrudComponent {
   getMobileRequiredError() {
     return this.submitted && this.profileForm.controls.mobile.hasError('required');
   }
+  getMobilePatternError() {
+    return this.submitted && this.profileForm.controls.mobile.hasError('pattern');
+  }
   // password error methods
   getPasswordError() {
     return this.submitted && this.profileForm.controls.password.errors
@@ -62,6 +69,18 @@ export class ReactiveFormCrudComponent {
   }
   getConfirmPasswordRequiredError() {
     return this.submitted && this.profileForm.controls.confirmPassword.hasError('required');
+  }
+  getConfirmPasswordNotMatchError() {
+    return this.submitted && this.profileForm.hasError('passwordNoMatch');
+  }
+  confirmPasswordValidator(password: string, confirmPassword: string): ValidatorFn {
+    return (abstractControl: AbstractControl) => {
+      const control = abstractControl.get(password);
+      const matchingControl = abstractControl.get(confirmPassword);
+      return control === matchingControl
+        ? null
+        : { passwordNoMatch: true };
+    }
   }
   // required message label
   requiredErrorDescription(label: string) {
