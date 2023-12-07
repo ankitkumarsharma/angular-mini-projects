@@ -37,5 +37,6 @@ export const DUMMY_DATA_TABLE_CONFIG:TableConfigModel = {
 
 export const LABELS = {
     noHeaders:'No Headers',
-    noData:'No Data'
+    noData:'No Data',
+    noDataError:'Please provide tableConfig input in library selector for table data'
 }
