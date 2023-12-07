@@ -1,0 +1,15 @@
+h1{
+    background-color: aqua;
+    color: black;
+}
+table{
+    border: 1px solid;
+    border-collapse: collapse ;
+    tr{
+        th,td{
+            border: 1px solid;
+            border-collapse: collapse ;
+            padding: 10px 15px;
+        }
+    }
+}

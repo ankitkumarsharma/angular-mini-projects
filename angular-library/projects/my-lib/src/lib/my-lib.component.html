@@ -1,0 +1,26 @@
+<h1>{{title}}</h1>
+<p>{{tableConfig.title}}</p>
+<table>
+  <tr>
+    @for (col of tableConfig.tableHeaders; track $index) {
+    <th>{{col.label}}</th>
+    } @empty {
+    <th>{{noHeaders}}</th>
+    }
+  </tr>
+  @for (item of tableConfig.tableData; track $index) {
+  <tr>
+    @for (col of tableConfig.tableHeaders; track $index) {
+    <td>
+      {{item[col.value]}}
+    </td>
+    }
+  </tr>
+  } @empty {
+  <tr>
+    <td>
+      {{noData}}
+    </td>
+  </tr>
+  }
+</table>
