@@ -5,10 +5,15 @@
                 <label [for]="control.name">{{control.label}}</label>
             </div>
             <div class="col">
-                <input [type]="control.type" [name]="control.name" [id]="control.name" class="form-control" [formControlName]="control.name">
+                <input [ngClass]="{'is-invalid': isValid(control)}" [type]="control.type" [name]="control.name" [id]="control.name" class="form-control" [formControlName]="control.name">
+                @if (isValid(control)) {
+                    <span class="error">
+                        {{getErrorMessage(control)}}
+                    </span>
+                }
             </div>
         </div>
     } @empty {
-        No controls Available, please add json form data for see dynamic forms!!!
+        {{noFormData}}
     }
 </form>

@@ -23,6 +23,10 @@ export class AppComponent {
     this.formGroup = event;
   }
   onFormSubmit(){
-    console.log(this.formGroup.value)
+    if(this.formGroup.valid){
+      // code
+    } else {
+      this.formGroup.markAllAsTouched();
+    }
   }
 }
