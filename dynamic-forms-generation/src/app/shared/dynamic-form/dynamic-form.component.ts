@@ -1,13 +1,30 @@
-import { Component, Input } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { DynamicFormsConfigModel } from './core/dynamic-form.models';
 
 @Component({
-  selector: 'app-dynamic-form',
+  selector: 'dynamic-form',
   standalone: true,
-  imports: [],
+  imports: [ReactiveFormsModule],
   templateUrl: './dynamic-form.component.html',
   styleUrl: './dynamic-form.component.scss'
 })
-export class DynamicFormComponent {
-  dynamicForm!:FormGroup;
+export class DynamicFormComponent implements OnInit {
+  dynamicForm = new FormGroup({});
+  @Input() formConfig!:DynamicFormsConfigModel[];
+  @Output() onSubmit:EventEmitter<any> = new EventEmitter();
+
+  ngOnInit(): void {
+    this.initDynamicForm();
+  }
+
+  initDynamicForm(){
+    if(this.formConfig) {
+      this.formConfig.forEach((control)=> {
+        this.dynamicForm.addControl(control.name, new FormControl('',[]))
+      });
+    }
+    this.onSubmit.emit(this.dynamicForm);
+  }
+  
 }

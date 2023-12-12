@@ -1,1 +1,14 @@
-<p>dynamic-form works!</p>
+<form [formGroup]="dynamicForm">
+    @for (control of formConfig; track $index) {
+        <div class="row form-group m-3">
+            <div class="col">
+                <label [for]="control.name">{{control.label}}</label>
+            </div>
+            <div class="col">
+                <input [type]="control.type" [name]="control.name" [id]="control.name" class="form-control" [formControlName]="control.name">
+            </div>
+        </div>
+    } @empty {
+        No controls Available, please add json form data for see dynamic forms!!!
+    }
+</form>
