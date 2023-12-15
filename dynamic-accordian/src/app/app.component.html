@@ -1,0 +1,26 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h2>{{title}}</h2>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <div class="accordian-block">
+        @for (item of dataList; track $index) {
+        <div (click)="onItemClick($index)" class="acc-item">
+          <div [ngClass]="{'active': item.active}" class="acc-item-header">
+            {{item.header}} {{$index+1}}
+            <span>{{item.active ? '-':'+'}}</span>
+          </div>
+          <div *ngIf="item.active" class="acc-item-content">
+            {{item.content}} {{$index+1}}
+          </div>
+        </div>
+        } @empty {
+        No Data Found
+        }
+      </div>
+    </div>
+  </div>
+</div>
