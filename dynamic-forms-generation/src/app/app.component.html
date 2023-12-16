@@ -2,17 +2,16 @@
   <div class="row">
     <div class="col-12">
       <app-contact />
+      <ul class="list-inline nav-menu">
+        @for (item of menuList; track $index) {
+          <li class="list-inline-item">
+            <a [routerLink]="item.route" [routerLinkActive]="'router-active'">{{item.label}}</a>
+          </li>
+        } @empty {
+          {{noDataFound}}
+        }
+      </ul>
       <router-outlet></router-outlet>
-      <div class="row">
-        <div class="col">
-          <dynamic-form (onSubmit)="onSubmit($event)" [formConfig]="formConfig" />
-          <button type="submit" (click)="onFormSubmit()" class="primary-btn">Submit</button>
-        </div>
-        <div class="col">
-          <br />
-          {{formGroup.value | json}}
-        </div>
-      </div>
     </div>
   </div>
 </div>

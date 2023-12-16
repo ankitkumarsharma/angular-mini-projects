@@ -7,3 +7,8 @@ export interface LabelsModel {
 export interface RouteModel {
     home: string
 }
+
+export interface MenuListModel {
+    label:string,
+    route:string
+}
