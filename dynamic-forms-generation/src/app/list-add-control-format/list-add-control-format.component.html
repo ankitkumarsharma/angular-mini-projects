@@ -1,0 +1,98 @@
+<div class="row">
+    <div class="col-7">
+        @for (item of cardList; track $index) {
+            <div class="card">
+                <div class="row">
+                    <div class="col-6">
+                        <h3 class="ak-sub-title">{{item.cardName}}</h3>
+                    </div>
+                    <div class="col-6">
+                        <ul class="list-inline action-list pull-right">
+                            <li class="list-inline-item">
+                                <a href=""><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a href=""><i class="fa fa-trash" aria-hidden="true"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <p class="ak-para">{{item.desc}}</p>
+                <hr/>
+                <h3 class="ak-sub-title">Card Controls</h3>
+                @for (control of item.controlsList; track $index) {
+                    <div class="row form-group mb-3">
+                        <div class="col-5">
+                            <label for="">{{control.label}}</label>
+                        </div>
+                        <div class="col-7">
+                            <div class="row">
+                                <div class="col-10">
+                                    <input [name]="control.name" type="text" class="form-control">
+                                </div>
+                                <div class="col-2">
+                                    <ul class="list-inline action-list pull-right">
+                                        <li class="list-inline-item">
+                                            <a href=""><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                        </li>
+                                        <li class="list-inline-item">
+                                            <a href=""><i class="fa fa-trash" aria-hidden="true"></i></a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                } @empty {
+                    {{noDataFound}}
+                }
+            </div>
+        } @empty {
+            {{noDataFound}}
+        }
+    </div>
+    <div class="col-5">
+        <div class="card">
+            <h3 class="ak-sub-title">Add Card</h3>
+            <div class="row form-group mb-3">
+                <div class="col-4">
+                    <label for="">Card Name</label>
+                </div>
+                <div class="col-8">
+                    <input type="text" class="form-control">
+                </div>
+            </div>
+            <div class="row form-group mb-3">
+                <div class="col-4">
+                    <label for="">Card Desc</label>
+                </div>
+                <div class="col-8">
+                    <input type="text" class="form-control">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <button type="submit" (click)="addCard()" class="primary-btn">Add Card</button>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <h3 class="ak-sub-title">Add Controls in Card</h3>
+            <div class="row form-group mb-3">
+                <div class="col-4">
+                    <label for="">Control Name</label>
+                </div>
+                <div class="col-8">
+                    <select name="" id="" class="form-control">
+                        <option value="">Select</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <button type="submit" class="primary-btn">Add Control</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

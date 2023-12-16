@@ -22,6 +22,7 @@
 .card{
   min-height: 160px;
   margin-bottom: 15px;
+  padding: 15px;
   &.disabled{
     pointer-events: none;
     background-color: $whiteColor;
