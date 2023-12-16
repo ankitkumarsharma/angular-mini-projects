@@ -16,7 +16,7 @@ export interface MenuListModel {
 }
 
 export interface CardListModel {
-    cardName: string,
+    name: string,
     desc: string,
     controlsList?: DynamicFormsConfigModel[] | []
 }

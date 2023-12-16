@@ -56,7 +56,7 @@ export const DYNAMIC_FORM_CONFIG_DATA: DynamicFormsConfigModel[] = [
 
 export const CARD_LIST: CardListModel[] = [
     {
-      cardName: 'card info 1',
+      name: 'card info 1',
       desc: 'desc 1',
       controlsList: [
         {
@@ -85,25 +85,6 @@ export const CARD_LIST: CardListModel[] = [
             }
           ]
         }
-      ]
-    },
-    {
-      cardName: 'card info 2',
-      desc: 'desc 2',
-      controlsList: [
-        {
-          type: 'date',
-          label: 'Today Date',
-          name: 'date',
-          value: '',
-          validations: [
-            {
-              name: 'required',
-              validator: 'required',
-              message: 'Date is required'
-            }
-          ]
-        },
       ]
     }
   ];

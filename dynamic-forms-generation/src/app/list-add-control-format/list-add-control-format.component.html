@@ -1,80 +1,110 @@
 <div class="row">
     <div class="col-7">
         @for (item of cardList; track $index) {
-            <div class="card">
-                <div class="row">
-                    <div class="col-6">
-                        <h3 class="ak-sub-title">{{item.cardName}}</h3>
-                    </div>
-                    <div class="col-6">
-                        <ul class="list-inline action-list pull-right">
-                            <li class="list-inline-item">
-                                <a href=""><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a href=""><i class="fa fa-trash" aria-hidden="true"></i></a>
-                            </li>
-                        </ul>
+        <div class="card">
+            <div class="row">
+                <div class="col-6">
+                    <h3 class="ak-sub-title">{{item.name}}</h3>
+                </div>
+                <div class="col-6">
+                    <ul class="list-inline action-list pull-right">
+                        <li class="list-inline-item">
+                            <a (click)="onCardEdit($index)"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a (click)="onCardDelete($index)"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <p class="ak-para">{{item.desc}}</p>
+            <hr />
+            <h3 class="ak-sub-title">Card Controls</h3>
+            @for (control of item.controlsList; track $index) {
+            <div class="row form-group mb-3">
+                <div class="col-5">
+                    <label for="">{{control.label}}</label>
+                </div>
+                <div class="col-7">
+                    <div class="row">
+                        <div class="col-10">
+                            <input [name]="control.name" type="text" class="form-control">
+                        </div>
+                        <div class="col-2">
+                            <ul class="list-inline action-list pull-right">
+                                <li class="list-inline-item">
+                                    <a href=""><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                </li>
+                                <li class="list-inline-item">
+                                    <a href=""><i class="fa fa-trash" aria-hidden="true"></i></a>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
-                <p class="ak-para">{{item.desc}}</p>
-                <hr/>
-                <h3 class="ak-sub-title">Card Controls</h3>
-                @for (control of item.controlsList; track $index) {
-                    <div class="row form-group mb-3">
-                        <div class="col-5">
-                            <label for="">{{control.label}}</label>
-                        </div>
-                        <div class="col-7">
-                            <div class="row">
-                                <div class="col-10">
-                                    <input [name]="control.name" type="text" class="form-control">
-                                </div>
-                                <div class="col-2">
-                                    <ul class="list-inline action-list pull-right">
-                                        <li class="list-inline-item">
-                                            <a href=""><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                                        </li>
-                                        <li class="list-inline-item">
-                                            <a href=""><i class="fa fa-trash" aria-hidden="true"></i></a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                } @empty {
-                    {{noDataFound}}
-                }
             </div>
-        } @empty {
+            } @empty {
             {{noDataFound}}
+            }
+        </div>
+        } @empty {
+        {{noDataFound}}
         }
     </div>
     <div class="col-5">
         <div class="card">
-            <h3 class="ak-sub-title">Add Card</h3>
-            <div class="row form-group mb-3">
-                <div class="col-4">
-                    <label for="">Card Name</label>
+            <form [formGroup]="addCardFormGroup" (ngSubmit)="addCard(addCardFormGroup.value)">
+                <h3 class="ak-sub-title">Add Card</h3>
+                <div class="row form-group mb-3">
+                    <div class="col-4">
+                        <label for="">Card Name</label>
+                    </div>
+                    <div class="col-8">
+                        <input [ngClass]="{'is-invalid': getCardNameError()}" type="text" formControlName="name"
+                            class="form-control">
+                        @if (getCardNameError()) {
+                        <div>
+                            @if (getCardNameRequiredError()) {
+                            <span class="error">{{requiredErrorDescription('Name')}}</span>
+                            }
+                        </div>
+                        }
+                    </div>
                 </div>
-                <div class="col-8">
-                    <input type="text" class="form-control">
+                <div class="row form-group mb-3">
+                    <div class="col-4">
+                        <label for="">Card Desc</label>
+                    </div>
+                    <div class="col-8">
+                        <input [ngClass]="{'is-invalid': getCardDescError()}" type="text" formControlName="desc"
+                            class="form-control">
+                        @if (getCardDescError()) {
+                        <div>
+                            @if (getCardDescRequiredError()) {
+                            <span class="error">{{requiredErrorDescription('Desc')}}</span>
+                            }
+                        </div>
+                        }
+                    </div>
                 </div>
-            </div>
-            <div class="row form-group mb-3">
-                <div class="col-4">
-                    <label for="">Card Desc</label>
+                <div class="row">
+                    <div class="col">
+                        <ul class="list-inline">
+                            <li class="list-inline-item">
+                                @if (!cardEditFlag) {
+                                <button type="submit" class="primary-btn">Add Card</button>
+                                } @else {
+                                <button (click)="onCardUpdate()" type="button" class="primary-btn">Update Card</button>
+                                }
+                            </li>
+                            <li class="list-inline-item">
+                                <button type="button" (click)="resetAddCardFormGroup()"
+                                    class="secondary-btn">Reset</button>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
-                <div class="col-8">
-                    <input type="text" class="form-control">
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <button type="submit" (click)="addCard()" class="primary-btn">Add Card</button>
-                </div>
-            </div>
+            </form>
         </div>
         <div class="card">
             <h3 class="ak-sub-title">Add Controls in Card</h3>
@@ -90,7 +120,14 @@
             </div>
             <div class="row">
                 <div class="col">
-                    <button type="submit" class="primary-btn">Add Control</button>
+                    <ul class="list-inline">
+                        <li class="list-inline-item">
+                            <button type="submit" class="primary-btn">Add Control</button>
+                        </li>
+                        <li class="list-inline-item">
+                            <button type="button" class="secondary-btn">Reset</button>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
