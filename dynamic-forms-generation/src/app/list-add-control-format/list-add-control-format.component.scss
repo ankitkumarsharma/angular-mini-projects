@@ -1,0 +1,9 @@
+@import '../scss/variable';
+.action-list{
+    li {
+        a {
+            color: $primaryColor;
+            font-size: 16px;
+        }
+    }
+}

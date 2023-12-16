@@ -1,10 +1,12 @@
-<div class="row">
-    <div class="col">
-        <dynamic-form (onSubmit)="onSubmit($event)" [formConfig]="formConfig" />
-        <button type="submit" (click)="onFormSubmit()" class="primary-btn">Submit</button>
-    </div>
-    <div class="col">
-        <br />
-        {{formGroup.value | json}}
+<div class="card">
+    <div class="row">
+        <div class="col">
+            <dynamic-form (onSubmit)="onSubmit($event)" [formConfig]="formConfig" />
+            <button type="submit" (click)="onFormSubmit()" class="primary-btn">Submit</button>
+        </div>
+        <div class="col">
+            <br />
+            {{formGroup.value | json}}
+        </div>
     </div>
 </div>
