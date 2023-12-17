@@ -60,11 +60,11 @@
                         <label for="">Card Name</label>
                     </div>
                     <div class="col-8">
-                        <input [ngClass]="{'is-invalid': getCardNameError()}" type="text" formControlName="name"
+                        <input [ngClass]="{'is-invalid': addCardFormGroupSubmitted && getControlError('name',addCardFormGroup)}" type="text" formControlName="name"
                             class="form-control">
-                        @if (getCardNameError()) {
+                        @if (addCardFormGroupSubmitted && getControlError('name',addCardFormGroup)) {
                         <div>
-                            @if (getCardNameRequiredError()) {
+                            @if (addCardFormGroupSubmitted && getControlRequiredError('name',addCardFormGroup)) {
                             <span class="error">{{requiredErrorDescription('Name')}}</span>
                             }
                         </div>
@@ -76,11 +76,11 @@
                         <label for="">Card Desc</label>
                     </div>
                     <div class="col-8">
-                        <input [ngClass]="{'is-invalid': getCardDescError()}" type="text" formControlName="desc"
+                        <input [ngClass]="{'is-invalid': addCardFormGroupSubmitted && getControlError('desc',addCardFormGroup)}" type="text" formControlName="desc"
                             class="form-control">
-                        @if (getCardDescError()) {
+                        @if (addCardFormGroupSubmitted && getControlError('desc',addCardFormGroup)) {
                         <div>
-                            @if (getCardDescRequiredError()) {
+                            @if (addCardFormGroupSubmitted && getControlRequiredError('desc',addCardFormGroup)) {
                             <span class="error">{{requiredErrorDescription('Desc')}}</span>
                             }
                         </div>
@@ -111,14 +111,14 @@
             <form [formGroup]="addControlFormGroup" (ngSubmit)="addControl(addControlFormGroup.value)">
                 <div class="row form-group mb-3">
                     <div class="col-4">
-                        <label for="">Control Label</label>
+                        <label for="">Label</label>
                     </div>
                     <div class="col-8">
-                        <input type="text" [ngClass]="{'is-invalid': getControlError('label')}" class="form-control"
+                        <input type="text" [ngClass]="{'is-invalid': addControlFormGroupSubmitted && getControlError('label',addControlFormGroup)}" class="form-control"
                         formControlName="label">
-                        @if (getControlError('label')) {
+                        @if (addControlFormGroupSubmitted && getControlError('label',addControlFormGroup)) {
                         <div>
-                            @if (getControlRequiredError('label')) {
+                            @if (addControlFormGroupSubmitted && getControlRequiredError('label',addControlFormGroup)) {
                             <span class="error">{{requiredErrorDescription('Label')}}</span>
                             }
                         </div>
@@ -127,14 +127,14 @@
                 </div>
                 <div class="row form-group mb-3">
                     <div class="col-4">
-                        <label for="">Control Name</label>
+                        <label for="">Name</label>
                     </div>
                     <div class="col-8">
-                        <input type="text" [ngClass]="{'is-invalid': getControlError('name')}" class="form-control"
+                        <input type="text" [ngClass]="{'is-invalid': addControlFormGroupSubmitted && getControlError('name',addControlFormGroup)}" class="form-control"
                         formControlName="name">
-                        @if (getControlError('name')) {
+                        @if (addControlFormGroupSubmitted && getControlError('name',addControlFormGroup)) {
                         <div>
-                            @if (getControlRequiredError('name')) {
+                            @if (addControlFormGroupSubmitted && getControlRequiredError('name',addControlFormGroup)) {
                             <span class="error">{{requiredErrorDescription('Name')}}</span>
                             }
                         </div>
@@ -143,10 +143,10 @@
                 </div>
                 <div class="row form-group mb-3">
                     <div class="col-4">
-                        <label for="">Control Type</label>
+                        <label for="">Type</label>
                     </div>
                     <div class="col-8">
-                        <select [ngClass]="{'is-invalid': getControlError('type')}" class="form-control form-select"
+                        <select [ngClass]="{'is-invalid': addControlFormGroupSubmitted && getControlError('type',addControlFormGroup)}" class="form-control form-select"
                             formControlName="type">
                             @for (item of controlList; track $index) {
                             <option [value]="item.value">{{item.label}}</option>
@@ -154,9 +154,9 @@
                             {{noDataFound}}
                             }
                         </select>
-                        @if (getControlError('type')) {
+                        @if (addControlFormGroupSubmitted && getControlError('type',addControlFormGroup)) {
                         <div>
-                            @if (getControlRequiredError('type')) {
+                            @if (addControlFormGroupSubmitted && getControlRequiredError('type',addControlFormGroup)) {
                             <span class="error">{{requiredErrorDescription('Type')}}</span>
                             }
                         </div>

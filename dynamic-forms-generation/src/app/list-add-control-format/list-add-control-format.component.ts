@@ -30,27 +30,22 @@ export class ListAddControlFormatComponent implements OnInit {
     this.initAddCardFormGroup();
     this.initAddControlFormGroup();
   }
+  // error validation part
+  requiredErrorDescription(label: string) {
+    return `${label} field is required`;
+  }
+  getControlRequiredError(control: string, form:FormGroup) {
+    return form.controls[control].hasError('required');
+  }
+  getControlError(control: string, form:FormGroup) {
+    return form.controls[control].errors;
+  }
   // card add/edit
   initAddCardFormGroup() {
     this.addCardFormGroup = new FormGroup({
       name: new FormControl('', Validators.required),
       desc: new FormControl('', Validators.required),
     })
-  }
-  getCardNameRequiredError() {
-    return this.addCardFormGroupSubmitted && this.addCardFormGroup.controls['name'].hasError('required');
-  }
-  getCardNameError() {
-    return this.addCardFormGroupSubmitted && this.addCardFormGroup.controls['name'].errors;
-  }
-  getCardDescError() {
-    return this.addCardFormGroupSubmitted && this.addCardFormGroup.controls['desc'].errors;
-  }
-  getCardDescRequiredError() {
-    return this.addCardFormGroupSubmitted && this.addCardFormGroup.controls['desc'].hasError('required');
-  }
-  requiredErrorDescription(label: string) {
-    return `${label} field is required`;
   }
   resetAddCardFormGroup() {
     this.addCardFormGroup.reset();
@@ -134,12 +129,6 @@ export class ListAddControlFormatComponent implements OnInit {
       label: new FormControl('', Validators.required),
       type: new FormControl('', Validators.required),
     })
-  }
-  getControlRequiredError(control: string) {
-    return this.addControlFormGroupSubmitted && this.addControlFormGroup.controls[control].hasError('required');
-  }
-  getControlError(control: string) {
-    return this.addControlFormGroupSubmitted && this.addControlFormGroup.controls[control].errors;
   }
   resetAddControlFormGroup() {
     this.addControlFormGroup.reset();
