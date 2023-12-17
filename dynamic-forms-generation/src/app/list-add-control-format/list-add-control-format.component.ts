@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { CARD_LIST, LABELS } from '../core/app.constant';
-import { CardListModel } from '../core/app.models';
+import { Component, OnInit, inject } from '@angular/core';
+import { CARD_LIST, CARD_PANEL_LIST, CONTROL_LIST, LABELS } from '../core/app.constant';
+import { CardListModel, ControlListModel } from '../core/app.models';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { ToastrService } from 'ngx-toastr';
+import { DynamicFormsConfigModel } from '../shared/dynamic-form/core/dynamic-form.models';
 
 @Component({
   selector: 'app-list-add-control-format',
@@ -12,14 +14,21 @@ import { CommonModule } from '@angular/common';
   styleUrl: './list-add-control-format.component.scss'
 })
 export class ListAddControlFormatComponent implements OnInit {
+  private toastr = inject(ToastrService);
   cardList: CardListModel[] = CARD_LIST;
   noDataFound: string = LABELS.noDataFound;
   addCardFormGroup!: FormGroup;
   addCardFormGroupSubmitted!: boolean;
   cardEditIndex!: number;
+  cardActiveIndex: number = 0;
   cardEditFlag!: boolean;
+  controlList: ControlListModel[] = CONTROL_LIST;
+  cardPanelList: ControlListModel[] = CARD_PANEL_LIST;
+  addControlFormGroup!: FormGroup;
+  addControlFormGroupSubmitted!: boolean;
   ngOnInit(): void {
     this.initAddCardFormGroup();
+    this.initAddControlFormGroup();
   }
   // card add/edit
   initAddCardFormGroup() {
@@ -53,6 +62,7 @@ export class ListAddControlFormatComponent implements OnInit {
       value = { ...value, controlsList: [] }
       this.cardList = [...this.cardList, value];
       this.resetAddCardFormGroup();
+      this.cardActiveIndex = 0;
     } else {
       this.addCardFormGroup.markAllAsTouched();
     }
@@ -74,8 +84,10 @@ export class ListAddControlFormatComponent implements OnInit {
   onCardUpdate() {
     this.addCardFormGroupSubmitted = true;
     if (this.addCardFormGroup.valid) {
-      this.cardList[this.cardEditIndex] = this.addCardFormGroup.value;
+      this.cardList[this.cardEditIndex].name = this.addCardFormGroup.controls['name'].value;
+      this.cardList[this.cardEditIndex].desc = this.addCardFormGroup.controls['desc'].value;
       this.cardEditFlag = false;
+      this.cardActiveIndex = 0;
       this.resetAddCardFormGroup();
     } else {
       this.addCardFormGroup.markAllAsTouched();
@@ -84,5 +96,54 @@ export class ListAddControlFormatComponent implements OnInit {
   }
   onCardDelete(index: number) {
     this.cardList.splice(index, 1);
+  }
+  onCardSelect(index: number) {
+    this.cardActiveIndex = index;
+  }
+  // control add/edit
+  toasterErrorMessage(message: string) {
+    this.toastr.error(message);
+  }
+  addControl(value: any) {
+    if (this.cardList.length) {
+      if (this.cardActiveIndex) {
+        this.addControlFormGroupSubmitted = true;
+        if (this.addControlFormGroup.valid) {
+          let controls: any = this.cardList[this.cardActiveIndex - 1].controlsList;
+          let control: any = {}
+          control.label = value.label;
+          control.name = value.name;
+          control.type = value.type;
+          controls = [...controls, control];
+          this.cardList[this.cardActiveIndex - 1].controlsList = controls;
+          this.resetAddControlFormGroup();
+          this.cardActiveIndex = 0;
+        } else {
+          this.addControlFormGroup.markAllAsTouched();
+        }
+      } else {
+        this.toasterErrorMessage(LABELS.errorMessage.panelNotSelected);
+      }
+    } else {
+      this.toasterErrorMessage(LABELS.errorMessage.panelNotCreated);
+    }
+  }
+  initAddControlFormGroup() {
+    this.addControlFormGroup = new FormGroup({
+      name: new FormControl('', Validators.required),
+      label: new FormControl('', Validators.required),
+      type: new FormControl('', Validators.required),
+    })
+  }
+  getControlRequiredError(control: string) {
+    return this.addControlFormGroupSubmitted && this.addControlFormGroup.controls[control].hasError('required');
+  }
+  getControlError(control: string) {
+    return this.addControlFormGroupSubmitted && this.addControlFormGroup.controls[control].errors;
+  }
+  resetAddControlFormGroup() {
+    this.addControlFormGroup.reset();
+    this.addControlFormGroupSubmitted = false;
+    this.addControlFormGroup.controls['type'].patchValue('');
   }
 }

@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-7">
         @for (item of cardList; track $index) {
-        <div class="card">
+        <div class="card" [ngClass]="{'active': cardActiveIndex == $index+1}" (click)="onCardSelect($index+1)">
             <div class="row">
                 <div class="col-6">
                     <h3 class="ak-sub-title">{{item.name}}</h3>
@@ -28,7 +28,7 @@
                 <div class="col-7">
                     <div class="row">
                         <div class="col-10">
-                            <input [name]="control.name" type="text" class="form-control">
+                            <input [name]="control.name" [type]="control.type" class="form-control">
                         </div>
                         <div class="col-2">
                             <ul class="list-inline action-list pull-right">
@@ -108,28 +108,74 @@
         </div>
         <div class="card">
             <h3 class="ak-sub-title">Add Controls in Card</h3>
-            <div class="row form-group mb-3">
-                <div class="col-4">
-                    <label for="">Control Name</label>
+            <form [formGroup]="addControlFormGroup" (ngSubmit)="addControl(addControlFormGroup.value)">
+                <div class="row form-group mb-3">
+                    <div class="col-4">
+                        <label for="">Control Label</label>
+                    </div>
+                    <div class="col-8">
+                        <input type="text" [ngClass]="{'is-invalid': getControlError('label')}" class="form-control"
+                        formControlName="label">
+                        @if (getControlError('label')) {
+                        <div>
+                            @if (getControlRequiredError('label')) {
+                            <span class="error">{{requiredErrorDescription('Label')}}</span>
+                            }
+                        </div>
+                        }
+                    </div>
                 </div>
-                <div class="col-8">
-                    <select name="" id="" class="form-control">
-                        <option value="">Select</option>
-                    </select>
+                <div class="row form-group mb-3">
+                    <div class="col-4">
+                        <label for="">Control Name</label>
+                    </div>
+                    <div class="col-8">
+                        <input type="text" [ngClass]="{'is-invalid': getControlError('name')}" class="form-control"
+                        formControlName="name">
+                        @if (getControlError('name')) {
+                        <div>
+                            @if (getControlRequiredError('name')) {
+                            <span class="error">{{requiredErrorDescription('Name')}}</span>
+                            }
+                        </div>
+                        }
+                    </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <ul class="list-inline">
-                        <li class="list-inline-item">
-                            <button type="submit" class="primary-btn">Add Control</button>
-                        </li>
-                        <li class="list-inline-item">
-                            <button type="button" class="secondary-btn">Reset</button>
-                        </li>
-                    </ul>
+                <div class="row form-group mb-3">
+                    <div class="col-4">
+                        <label for="">Control Type</label>
+                    </div>
+                    <div class="col-8">
+                        <select [ngClass]="{'is-invalid': getControlError('type')}" class="form-control form-select"
+                            formControlName="type">
+                            @for (item of controlList; track $index) {
+                            <option [value]="item.value">{{item.label}}</option>
+                            } @empty {
+                            {{noDataFound}}
+                            }
+                        </select>
+                        @if (getControlError('type')) {
+                        <div>
+                            @if (getControlRequiredError('type')) {
+                            <span class="error">{{requiredErrorDescription('Type')}}</span>
+                            }
+                        </div>
+                        }
+                    </div>
                 </div>
-            </div>
+                <div class="row">
+                    <div class="col">
+                        <ul class="list-inline">
+                            <li class="list-inline-item">
+                                <button type="submit" class="primary-btn">Add Control</button>
+                            </li>
+                            <li class="list-inline-item">
+                                <button type="button" (click)="resetAddControlFormGroup()" class="secondary-btn">Reset</button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 </div>

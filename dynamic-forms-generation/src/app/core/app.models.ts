@@ -20,3 +20,8 @@ export interface CardListModel {
     desc: string,
     controlsList?: DynamicFormsConfigModel[] | []
 }
+
+export interface ControlListModel {
+    label: string,
+    value: string
+  }
