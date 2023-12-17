@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, ValidatorFn, Validators } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
@@ -12,63 +12,35 @@ import { REGX_PATTERN } from './core/reactive-form-crud.constant';
   templateUrl: './reactive-form-crud.component.html',
   styleUrl: './reactive-form-crud.component.scss'
 })
-export class ReactiveFormCrudComponent {
+export class ReactiveFormCrudComponent implements OnInit {
   mobileNumberValidation: string = REGX_PATTERN.mobileNumberValidation;
-  profileForm = new FormGroup({
-    name: new FormControl('', Validators.required),
-    mobile: new FormControl('', [Validators.required, Validators.pattern(this.mobileNumberValidation)]),
-    email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', Validators.required),
-    confirmPassword: new FormControl('', Validators.required),
-  },
-    { validators: this.confirmPasswordValidator('password', 'confirmPassword') }
-  );
-
+  profileForm!: FormGroup;
   submitted!: boolean;
   tableData: ProfileFormValueModel[] = [];
   editFlag!: boolean;
   editIndex!: number;
 
-  // name error methods
-  getNameError() {
-    return this.submitted && this.profileForm.controls.name.errors
+  ngOnInit(): void {
+    this.initProfileForm();
   }
-  getNameRequiredError() {
-    return this.submitted && this.profileForm.controls.name.hasError('required');
+
+  initProfileForm() {
+    this.profileForm = new FormGroup({
+      name: new FormControl('', Validators.required),
+      mobile: new FormControl('', [Validators.required, Validators.pattern(this.mobileNumberValidation)]),
+      email: new FormControl('', [Validators.required, Validators.email]),
+      password: new FormControl('', Validators.required),
+      confirmPassword: new FormControl('', Validators.required),
+    },
+      { validators: this.confirmPasswordValidator('password', 'confirmPassword') }
+    );
   }
-  // email error methods
-  getEmailError() {
-    return this.submitted && this.profileForm.controls.email.errors
+  // error validations methods
+  getControlError(control:string) {
+    return this.submitted && this.profileForm.controls[control].errors
   }
-  getEmailRequiredError() {
-    return this.submitted && this.profileForm.controls.email.hasError('required');
-  }
-  getEmailFormatError() {
-    return this.submitted && this.profileForm.controls.email.hasError('email');
-  }
-  // mobile error methods
-  getMobileError() {
-    return this.submitted && this.profileForm.controls.mobile.errors
-  }
-  getMobileRequiredError() {
-    return this.submitted && this.profileForm.controls.mobile.hasError('required');
-  }
-  getMobilePatternError() {
-    return this.submitted && this.profileForm.controls.mobile.hasError('pattern');
-  }
-  // password error methods
-  getPasswordError() {
-    return this.submitted && this.profileForm.controls.password.errors
-  }
-  getPasswordRequiredError() {
-    return this.submitted && this.profileForm.controls.password.hasError('required');
-  }
-  // confirm Password error methods
-  getConfirmPasswordError() {
-    return this.submitted && this.profileForm.controls.confirmPassword.errors
-  }
-  getConfirmPasswordRequiredError() {
-    return this.submitted && this.profileForm.controls.confirmPassword.hasError('required');
+  getControlRequiredError(control:string,error:string) {
+    return this.submitted && this.profileForm.controls[control].hasError(error);
   }
   getConfirmPasswordNotMatchError() {
     return this.submitted && this.profileForm.hasError('passwordNoMatch');
@@ -82,11 +54,10 @@ export class ReactiveFormCrudComponent {
         : { passwordNoMatch: true };
     }
   }
-  // required message label
   requiredErrorDescription(label: string) {
     return `${label} field is required`;
   }
-
+  // form part
   onSubmit() {
     this.submitted = true;
     if (this.profileForm.valid) {
