@@ -36,22 +36,31 @@ export class ReactiveFormCrudComponent implements OnInit {
     );
   }
   // error validations methods
-  getControlError(control:string) {
+  getControlError(control: string) {
     return this.submitted && this.profileForm.controls[control].errors
   }
-  getControlRequiredError(control:string,error:string) {
+  getControlRequiredError(control: string, error: string) {
     return this.submitted && this.profileForm.controls[control].hasError(error);
   }
   getConfirmPasswordNotMatchError() {
     return this.submitted && this.profileForm.hasError('passwordNoMatch');
   }
-  confirmPasswordValidator(password: string, confirmPassword: string): ValidatorFn {
+  confirmPasswordValidator(controlName: string, matchingControlName: string): ValidatorFn {
     return (abstractControl: AbstractControl) => {
-      const control = abstractControl.get(password);
-      const matchingControl = abstractControl.get(confirmPassword);
-      return control === matchingControl
-        ? null
-        : { passwordNoMatch: true };
+      const control = abstractControl.get(controlName);
+      const matchingControl = abstractControl.get(matchingControlName);
+
+      if (matchingControl!.errors && !matchingControl!.errors?.['passwordNoMatch']) {
+        return null;
+      }
+      if (control!.value !== matchingControl!.value) {
+        const error = { passwordNoMatch: true };
+        matchingControl!.setErrors(error);
+        return error;
+      } else {
+        matchingControl!.setErrors(null);
+        return null;
+      }
     }
   }
   requiredErrorDescription(label: string) {
@@ -85,9 +94,13 @@ export class ReactiveFormCrudComponent implements OnInit {
   }
 
   onUpdate() {
-    this.tableData[this.editIndex] = this.profileForm.value;
-    this.editFlag = false;
-    this.resetForm();
+    this.submitted = true;
+    if (this.profileForm.valid) {
+      this.tableData[this.editIndex] = this.profileForm.value;
+      this.resetForm();
+    } else {
+      this.profileForm.markAllAsTouched()
+    }
   }
   onDelete(index: number) {
     this.tableData.splice(index, 1);
