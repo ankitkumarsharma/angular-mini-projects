@@ -1,18 +1,18 @@
 <div class="row">
     <div class="col-7">
-        @for (item of cardList; track $index) {
-        <div class="card" [ngClass]="{'active': cardActiveIndex == $index+1}" (click)="onCardSelect($index+1)">
+        @for (item of cardList; track item.name; let cardIndex = $index) {
+        <div class="card" [ngClass]="{'active': cardActiveIndex == cardIndex+1}" (click)="onCardSelect(cardIndex+1)">
             <div class="row">
                 <div class="col-6">
-                    <h3 class="ak-sub-title">{{item.name}}</h3>
+                    <h3 class="ak-title">{{item.name}}</h3>
                 </div>
                 <div class="col-6">
                     <ul class="list-inline action-list pull-right">
                         <li class="list-inline-item">
-                            <a (click)="onCardEdit($index)"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                            <a (click)="onCardEdit(cardIndex)"><i class="fa fa-pencil" aria-hidden="true"></i></a>
                         </li>
                         <li class="list-inline-item">
-                            <a (click)="onCardDelete($index)"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                            <a (click)="onCardDelete(cardIndex)"><i class="fa fa-trash" aria-hidden="true"></i></a>
                         </li>
                     </ul>
                 </div>
@@ -20,7 +20,7 @@
             <p class="ak-para">{{item.desc}}</p>
             <hr />
             <h3 class="ak-sub-title">Card Controls</h3>
-            @for (control of item.controlsList; track $index) {
+            @for (control of item.controlsList; track control.name; let controlIndex=$index) {
             <div class="row form-group mb-3">
                 <div class="col-5">
                     <label for="">{{control.label}}</label>
@@ -33,10 +33,10 @@
                         <div class="col-2">
                             <ul class="list-inline action-list pull-right">
                                 <li class="list-inline-item">
-                                    <a href=""><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                    <a (click)="onControlEdit(cardIndex,controlIndex)"><i class="fa fa-pencil" aria-hidden="true"></i></a>
                                 </li>
                                 <li class="list-inline-item">
-                                    <a href=""><i class="fa fa-trash" aria-hidden="true"></i></a>
+                                    <a (click)="onControlDelete(cardIndex,controlIndex)"><i class="fa fa-trash" aria-hidden="true"></i></a>
                                 </li>
                             </ul>
                         </div>

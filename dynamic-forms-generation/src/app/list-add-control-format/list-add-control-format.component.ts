@@ -135,4 +135,8 @@ export class ListAddControlFormatComponent implements OnInit {
     this.addControlFormGroupSubmitted = false;
     this.addControlFormGroup.controls['type'].patchValue('');
   }
+  onControlEdit(cardIndex:number, controlIndex:number){
+    console.log(cardIndex,controlIndex)
+  }
+  onControlDelete(cardIndex:number, controlIndex:number){}
 }
