@@ -22,22 +22,26 @@ export class ListAddControlFormatComponent implements OnInit {
   cardEditIndex!: number;
   cardActiveIndex: number = 0;
   cardEditFlag!: boolean;
+  dynamicCardFormGroup!: FormGroup;
   controlList: ControlListModel[] = CONTROL_LIST;
   cardPanelList: ControlListModel[] = CARD_PANEL_LIST;
   addControlFormGroup!: FormGroup;
   addControlFormGroupSubmitted!: boolean;
+  controlEditIndex!: number;
+  controlEditFlag!: boolean;
   ngOnInit(): void {
     this.initAddCardFormGroup();
     this.initAddControlFormGroup();
+    this.initDynamicCardFormGroup();
   }
   // error validation part
   requiredErrorDescription(label: string) {
     return `${label} field is required`;
   }
-  getControlRequiredError(control: string, form:FormGroup) {
+  getControlRequiredError(control: string, form: FormGroup) {
     return form.controls[control].hasError('required');
   }
-  getControlError(control: string, form:FormGroup) {
+  getControlError(control: string, form: FormGroup) {
     return form.controls[control].errors;
   }
   // card add/edit
@@ -99,6 +103,9 @@ export class ListAddControlFormatComponent implements OnInit {
   toasterErrorMessage(message: string) {
     this.toastr.error(message);
   }
+  initDynamicCardFormGroup() {
+    this.dynamicCardFormGroup = new FormGroup({});
+  }
   addControl(value: any) {
     if (this.cardList.length) {
       if (this.cardActiveIndex) {
@@ -110,6 +117,7 @@ export class ListAddControlFormatComponent implements OnInit {
           control.name = value.name;
           control.type = value.type;
           controls = [...controls, control];
+          this.dynamicCardFormGroup.addControl(value.name, new FormControl(''));
           this.cardList[this.cardActiveIndex - 1].controlsList = controls;
           this.resetAddControlFormGroup();
           this.cardActiveIndex = 0;
@@ -135,8 +143,29 @@ export class ListAddControlFormatComponent implements OnInit {
     this.addControlFormGroupSubmitted = false;
     this.addControlFormGroup.controls['type'].patchValue('');
   }
-  onControlEdit(cardIndex:number, controlIndex:number){
-    console.log(cardIndex,controlIndex)
+  onControlEdit(cardIndex: number, controlIndex: number) {
+    this.controlEditFlag = true;
+    this.controlEditIndex = controlIndex;
+    this.cardEditIndex = cardIndex;
+    let data = this.cardList[this.cardEditIndex].controlsList[this.controlEditIndex];
+    this.addControlFormGroup.setValue(data);
+    this.dynamicCardFormGroup.removeControl(data.name);
   }
-  onControlDelete(cardIndex:number, controlIndex:number){}
+  onControlUpdate() {
+    this.addControlFormGroupSubmitted = true;
+    if (this.addControlFormGroup.valid) {
+      this.cardList[this.cardEditIndex].controlsList[this.controlEditIndex] = this.addControlFormGroup.value;
+      this.dynamicCardFormGroup.addControl(this.addControlFormGroup.value.name, new FormControl(''));
+      this.resetAddControlFormGroup();
+      this.cardActiveIndex = 0;
+      this.controlEditFlag = false;
+    } else {
+      this.addControlFormGroup.markAllAsTouched();
+    }
+  }
+  onControlDelete(cardIndex: number, controlIndex: number) {
+    let data = this.cardList[cardIndex].controlsList[controlIndex];
+    this.dynamicCardFormGroup.removeControl(data.name);
+    this.cardList[cardIndex].controlsList.splice(controlIndex, 1);
+  }
 }

@@ -9,7 +9,7 @@ export const LABELS = {
   },
   noDataFound: 'No Data Found',
   errorMessage: {
-    panelNotSelected:'Panel is not Selected, please select Panel from left side!!',
+    panelNotSelected: 'Panel is not Selected, please select Panel from left side!!',
     panelNotCreated: 'Panel is not listed, please create Panel from right side!!'
   }
 }
@@ -60,89 +60,89 @@ export const DYNAMIC_FORM_CONFIG_DATA: DynamicFormsConfigModel[] = [
 
 export const CARD_LIST: CardListModel[] = [
   {
-    name: 'card info 1',
+    name: 'card1',
     desc: 'desc 1',
     controlsList: [
-      {
-        type: 'date',
-        label: 'Today Date',
-        name: 'date',
-        value: '',
-        validations: [
-          {
-            name: 'required',
-            validator: 'required',
-            message: 'Date is required'
-          }
-        ]
-      },
-      {
-        type: 'text',
-        label: 'Name',
-        name: 'name',
-        value: '',
-        validations: [
-          {
-            name: 'required',
-            validator: 'required',
-            message: 'Name is required'
-          }
-        ]
-      }
+      // {
+      //   type: 'date',
+      //   label: 'Today Date',
+      //   name: 'date',
+      //   value: '',
+      //   validations: [
+      //     {
+      //       name: 'required',
+      //       validator: 'required',
+      //       message: 'Date is required'
+      //     }
+      //   ]
+      // },
+      // {
+      //   type: 'text',
+      //   label: 'Name',
+      //   name: 'name',
+      //   value: '',
+      //   validations: [
+      //     {
+      //       name: 'required',
+      //       validator: 'required',
+      //       message: 'Name is required'
+      //     }
+      //   ]
+      // }
     ]
   }
 ];
 
 export const CONTROL_LIST: ControlListModel[] = [
   {
-    label:'Select',
-    value:''
+    label: 'Select',
+    value: ''
   },
   {
-    label:'Text',
-    value:'text'
+    label: 'Text',
+    value: 'text'
   },
   {
-    label:'Password',
-    value:'password'
+    label: 'Password',
+    value: 'password'
   },
   {
-    label:'Email',
-    value:'email'
+    label: 'Email',
+    value: 'email'
   },
   {
-    label:'Dropdown',
-    value:'select'
+    label: 'Dropdown',
+    value: 'select'
   },
   {
-    label:'Radio',
-    value:'radio'
+    label: 'Radio',
+    value: 'radio'
   },
   {
-    label:'Checkbox',
-    value:'checkbox'
+    label: 'Checkbox',
+    value: 'checkbox'
   },
   {
-    label:'Textarea',
-    value:'textarea'
+    label: 'Textarea',
+    value: 'textarea'
   },
   {
-    label:'Date',
-    value:'date'
+    label: 'Date',
+    value: 'date'
   },
   {
-    label:'Time',
-    value:'time'
+    label: 'Time',
+    value: 'time'
   }
 ]
 
 export const CARD_PANEL_LIST: ControlListModel[] = [
   {
-    label:'Select',
-    value:''
+    label: 'Select',
+    value: ''
   },
   {
-    label:'Card Name 1',
-    value:'0'
+    label: 'Card Name 1',
+    value: '0'
   }
 ]

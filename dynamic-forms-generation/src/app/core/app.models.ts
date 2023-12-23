@@ -18,10 +18,10 @@ export interface MenuListModel {
 export interface CardListModel {
     name: string,
     desc: string,
-    controlsList?: DynamicFormsConfigModel[] | []
+    controlsList: DynamicFormsConfigModel[] | []
 }
 
 export interface ControlListModel {
     label: string,
     value: string
-  }
+}
