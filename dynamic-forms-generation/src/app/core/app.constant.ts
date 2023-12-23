@@ -110,22 +110,22 @@ export const CONTROL_LIST: ControlListModel[] = [
     label: 'Email',
     value: 'email'
   },
-  {
-    label: 'Dropdown',
-    value: 'select'
-  },
-  {
-    label: 'Radio',
-    value: 'radio'
-  },
-  {
-    label: 'Checkbox',
-    value: 'checkbox'
-  },
-  {
-    label: 'Textarea',
-    value: 'textarea'
-  },
+  // {
+  //   label: 'Dropdown',
+  //   value: 'select'
+  // },
+  // {
+  //   label: 'Radio',
+  //   value: 'radio'
+  // },
+  // {
+  //   label: 'Checkbox',
+  //   value: 'checkbox'
+  // },
+  // {
+  //   label: 'Textarea',
+  //   value: 'textarea'
+  // },
   {
     label: 'Date',
     value: 'date'

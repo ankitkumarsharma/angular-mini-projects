@@ -7,8 +7,14 @@
         }
     }
 }
-.card{
-    &.active{
-        border: 2px solid $primaryColor;
+.card-panel{
+    height: 450px;
+    overflow-y: auto;
+    border-bottom: 1px solid $border;
+    padding: 0px 15px;
+    .card{
+        &.active{
+            border: 2px solid $primaryColor;
+        }
     }
 }

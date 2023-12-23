@@ -168,4 +168,12 @@ export class ListAddControlFormatComponent implements OnInit {
     this.dynamicCardFormGroup.removeControl(data.name);
     this.cardList[cardIndex].controlsList.splice(controlIndex, 1);
   }
+  // dynamic form submit
+  onDynamicCardFormGroupSubmit(){
+    console.log(this.dynamicCardFormGroup.value)
+    console.log(this.cardList)
+  }
+  resetDynamicCardFormGroup() {
+    this.dynamicCardFormGroup.reset();
+  }
 }
