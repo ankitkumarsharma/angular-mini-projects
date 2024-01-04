@@ -1,5 +1,6 @@
 export interface CardListModel {
   title: string,
+  edit: boolean,
   controlList: ControlListModel[]
 }
 

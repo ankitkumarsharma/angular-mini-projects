@@ -6,7 +6,26 @@
                 <div class="card">
                     <div class="row">
                         <div class="col">
+                            @if (!card.edit) {
                             <h3 class="ak-sub-title">{{card.title}}</h3>
+                            } @else {
+                            <div class="row">
+                                <div class="col">
+                                    <input #editCard type="text" [value]="card.title" name="card" class="form-control mb-3"
+                                        placeholder="Edit Card Name">
+                                </div>
+                                <div class="col">
+                                    <label for="remove">
+                                        <input #removeAllControls id="remove" type="checkbox" name="card" class="">
+                                        Remove all below Controls
+                                    </label>
+                                </div>
+                                <div class="col">
+                                    <button type="button" (click)="onUpdateCard(cardIndex,editCard.value,removeAllControls.checked)" class="secondary-btn">Update
+                                        Card</button>
+                                </div>
+                            </div>
+                            }
                         </div>
                     </div>
                     @for (control of card.controlList; track control.name; let controlIndex = $index;) {
@@ -44,16 +63,23 @@
                     </div>
                     } @empty {
                     {{noDataFound}}
+                    <div class="row">
+                        <div class="col-2 mt-2">
+                            <button type="button" (click)="onAddRow(cardIndex)" class="primary-btn">Add
+                                Row</button>
+                        </div>
+                    </div>
                     }
                 </div>
             </div>
             <div class="col-2">
                 <div class="row mb-3">
                     <div class="col">
-                        <button type="button" class="edit-btn"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+                        <button type="button" (click)="onEditCard(cardIndex)" class="edit-btn"><i class="fa fa-pencil"
+                                aria-hidden="true"></i></button>
                     </div>
                     <div class="col">
-                        <button type="button" class="trash-btn"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                        <button type="button" (click)="onDeleteCard(cardIndex)" class="trash-btn"><i class="fa fa-trash" aria-hidden="true"></i></button>
                     </div>
                 </div>
                 <button type="button" class="secondary-btn">Add Card</button>
@@ -62,10 +88,19 @@
         } @empty {
         {{noDataFound}}
         }
-        <div class="row">
-            <div class="col">
-                <button type="button" class="primary-btn">Get All Card Details</button>
+
+        @if (cardList.length != 0) {
+            <div class="row mt-2">
+                <div class="col">
+                    <button type="button" class="primary-btn">Get All Card Details</button>
+                </div>
             </div>
-        </div>
+        } @else {
+           <div class="row mt-2">
+                <div class="col">
+                    <button type="button" class="secondary-btn">Add Card</button>
+                </div>
+           </div>
+        }
     </div>
 </div>

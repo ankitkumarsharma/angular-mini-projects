@@ -22,4 +22,20 @@ export class StaticAddControlFormatComponent {
     }
     this.cardList[cardIndex].controlList = [...this.cardList[cardIndex].controlList, control]
   }
+
+  onEditCard(cardIndex:number){
+    this.cardList[cardIndex].edit = true;
+  }
+
+  onUpdateCard(cardIndex:number,updatedCardValue:string,removeAllControl:boolean){
+    this.cardList[cardIndex].title = updatedCardValue;
+    if(removeAllControl) {
+      this.cardList[cardIndex].controlList = [];
+    }
+    this.cardList[cardIndex].edit = false;
+  }
+
+  onDeleteCard(cardIndex:number){
+    this.cardList.splice(cardIndex,1);
+  }
 }
