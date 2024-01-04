@@ -26,3 +26,19 @@
   width: 60px;
   min-width: auto;
 }
+.icon-btn{
+  @extend .btn;
+  background-color: $primaryColor;
+  width: 38px;
+  height: 38px;
+  min-width: auto;
+  border-radius: 40px;
+}
+.edit-btn{
+  @extend .icon-btn;
+  background-color: $successColor;
+}
+.trash-btn{
+  @extend .icon-btn;
+  background-color: $errorColor;
+}
