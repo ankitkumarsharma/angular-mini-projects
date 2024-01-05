@@ -51,7 +51,7 @@
                         </div>
                         <div class="col-1">
                             @if (controlIndex > 0) {
-                            <a class="error"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                            <a class="error" (click)="onDeleteControl(cardIndex,controlIndex)"><i class="fa fa-trash" aria-hidden="true"></i></a>
                             }
                         </div>
                         <div class="col-2">
@@ -79,10 +79,14 @@
                                 aria-hidden="true"></i></button>
                     </div>
                     <div class="col">
-                        <button type="button" (click)="onDeleteCard(cardIndex)" class="trash-btn"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                        @if (cardIndex > 0){
+                            <button type="button" (click)="onDeleteCard(cardIndex)" class="trash-btn"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                        }
                     </div>
                 </div>
-                <button type="button" class="secondary-btn">Add Card</button>
+                @if (cardList.length == cardIndex+1){
+                    <button type="button" (click)="onAddCard()" class="secondary-btn">Add Card</button>
+                }
             </div>
         </div>
         } @empty {
@@ -98,7 +102,7 @@
         } @else {
            <div class="row mt-2">
                 <div class="col">
-                    <button type="button" class="secondary-btn">Add Card</button>
+                    <button type="button" (click)="onAddCard()" class="secondary-btn">Add Card</button>
                 </div>
            </div>
         }

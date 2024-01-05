@@ -14,28 +14,47 @@ export class StaticAddControlFormatComponent {
   noDataFound: string = LABELS.noDataFound;
   cardList: CardListModel[] = CARD_LIST;
 
-  onAddRow(cardIndex: number) {
-    let control = {
-      name: '',
-      feature: '',
-      category: ''
-    }
-    this.cardList[cardIndex].controlList = [...this.cardList[cardIndex].controlList, control]
+  onAddCard() {
+    let card = {
+      title: 'Card One',
+      edit: false,
+      controlList: [
+        {
+          name: '',
+          feature: '',
+          category: ''
+        }
+      ]
+    };
+    this.cardList = [...this.cardList, card];
   }
 
-  onEditCard(cardIndex:number){
+  onEditCard(cardIndex: number) {
     this.cardList[cardIndex].edit = true;
   }
 
-  onUpdateCard(cardIndex:number,updatedCardValue:string,removeAllControl:boolean){
+  onUpdateCard(cardIndex: number, updatedCardValue: string, removeAllControl: boolean) {
     this.cardList[cardIndex].title = updatedCardValue;
-    if(removeAllControl) {
+    if (removeAllControl) {
       this.cardList[cardIndex].controlList = [];
     }
     this.cardList[cardIndex].edit = false;
   }
 
-  onDeleteCard(cardIndex:number){
-    this.cardList.splice(cardIndex,1);
+  onDeleteCard(cardIndex: number) {
+    this.cardList.splice(cardIndex, 1);
+  }
+
+  onAddRow(cardIndex: number) {
+    let control = {
+      name: '',
+      feature: '',
+      category: ''
+    };
+    this.cardList[cardIndex].controlList = [...this.cardList[cardIndex].controlList, control]
+  }
+
+  onDeleteControl(cardIndex: number, controlIndex: number) {
+    this.cardList[cardIndex].controlList.splice(controlIndex, 1);
   }
 }
