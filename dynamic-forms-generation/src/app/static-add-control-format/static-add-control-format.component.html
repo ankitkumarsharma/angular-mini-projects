@@ -1,110 +1,132 @@
-<div class="row">
-    <div class="col">
-        @for (card of cardList; track card.title; let cardIndex = $index;) {
-        <div class="row">
-            <div class="col-10">
-                <div class="card">
-                    <div class="row">
-                        <div class="col">
-                            @if (!card.edit) {
-                            <h3 class="ak-sub-title">{{card.title}}</h3>
-                            } @else {
-                            <div class="row">
-                                <div class="col">
-                                    <input #editCard type="text" [value]="card.title" name="card" class="form-control mb-3"
-                                        placeholder="Edit Card Name">
+@if (!allDetailsFlag) {
+    <div class="row">
+        <div class="col">
+            @for (card of cardList; track card.title; let cardIndex = $index;) {
+            <div class="row">
+                <div class="col-10">
+                    <div class="card">
+                        <div class="row">
+                            <div class="col">
+                                @if (!card.edit) {
+                                <h3 class="ak-sub-title">{{card.title}}</h3>
+                                } @else {
+                                <div class="row">
+                                    <div class="col">
+                                        <input #editCard type="text" [value]="card.title" name="card" class="form-control mb-3"
+                                            placeholder="Edit Card Name">
+                                    </div>
+                                    <div class="col">
+                                        <label for="remove">
+                                            <input #removeAllControls id="remove" type="checkbox" name="card" class="">
+                                            Remove all below Controls
+                                        </label>
+                                    </div>
+                                    <div class="col">
+                                        <button type="button" (click)="onUpdateCard(cardIndex,editCard.value,removeAllControls.checked)" class="secondary-btn">Update
+                                            Card</button>
+                                    </div>
                                 </div>
-                                <div class="col">
-                                    <label for="remove">
-                                        <input #removeAllControls id="remove" type="checkbox" name="card" class="">
-                                        Remove all below Controls
-                                    </label>
-                                </div>
-                                <div class="col">
-                                    <button type="button" (click)="onUpdateCard(cardIndex,editCard.value,removeAllControls.checked)" class="secondary-btn">Update
-                                        Card</button>
-                                </div>
-                            </div>
-                            }
-                        </div>
-                    </div>
-                    @for (control of card.controlList; track control.name; let controlIndex = $index;) {
-                    <div class="row">
-                        <div class="col-1">
-                            Controls
-                        </div>
-                        <div class="col-8">
-                            <div class="row form-group mb-4">
-                                <div class="col">
-                                    <input type="text" [name]="control.name" class="form-control"
-                                        placeholder="Add name">
-                                </div>
-                                <div class="col">
-                                    <input type="text" [name]="control.feature" class="form-control"
-                                        placeholder="Add feature">
-                                </div>
-                                <div class="col">
-                                    <input type="text" [name]="control.category" class="form-control"
-                                        placeholder="Add category">
-                                </div>
+                                }
                             </div>
                         </div>
-                        <div class="col-1">
-                            @if (controlIndex > 0) {
-                            <a class="error" (click)="onDeleteControl(cardIndex,controlIndex)"><i class="fa fa-trash" aria-hidden="true"></i></a>
-                            }
+                        @for (control of card.controlList; track control.name; let controlIndex = $index;) {
+                        <div class="row">
+                            <div class="col-1">
+                                Controls
+                            </div>
+                            <div class="col-8">
+                                <div class="row form-group mb-4">
+                                    <div class="col">
+                                        <input type="text" [name]="control.name" class="form-control"
+                                            placeholder="Add name">
+                                    </div>
+                                    <div class="col">
+                                        <input type="text" [name]="control.feature" class="form-control"
+                                            placeholder="Add feature">
+                                    </div>
+                                    <div class="col">
+                                        <input type="text" [name]="control.category" class="form-control"
+                                            placeholder="Add category">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-1">
+                                @if (controlIndex > 0) {
+                                <a class="error" (click)="onDeleteControl(cardIndex,controlIndex)"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                                }
+                            </div>
+                            <div class="col-2">
+                                @if (card.controlList.length == controlIndex+1) {
+                                <button type="button" (click)="onAddRow(cardIndex)" class="primary-btn">Add
+                                    Row</button>
+                                }
+                            </div>
                         </div>
-                        <div class="col-2">
-                            @if (card.controlList.length == controlIndex+1) {
-                            <button type="button" (click)="onAddRow(cardIndex)" class="primary-btn">Add
-                                Row</button>
-                            }
+                        } @empty {
+                        {{noDataFound}}
+                        <div class="row">
+                            <div class="col-2 mt-2">
+                                <button type="button" (click)="onAddRow(cardIndex)" class="primary-btn">Add
+                                    Row</button>
+                            </div>
                         </div>
-                    </div>
-                    } @empty {
-                    {{noDataFound}}
-                    <div class="row">
-                        <div class="col-2 mt-2">
-                            <button type="button" (click)="onAddRow(cardIndex)" class="primary-btn">Add
-                                Row</button>
-                        </div>
-                    </div>
-                    }
-                </div>
-            </div>
-            <div class="col-2">
-                <div class="row mb-3">
-                    <div class="col">
-                        <button type="button" (click)="onEditCard(cardIndex)" class="edit-btn"><i class="fa fa-pencil"
-                                aria-hidden="true"></i></button>
-                    </div>
-                    <div class="col">
-                        @if (cardIndex > 0){
-                            <button type="button" (click)="onDeleteCard(cardIndex)" class="trash-btn"><i class="fa fa-trash" aria-hidden="true"></i></button>
                         }
                     </div>
                 </div>
-                @if (cardList.length == cardIndex+1){
-                    <button type="button" (click)="onAddCard()" class="secondary-btn">Add Card</button>
-                }
+                <div class="col-2">
+                    <div class="row mb-3">
+                        <div class="col">
+                            <button type="button" (click)="onEditCard(cardIndex)" class="edit-btn"><i class="fa fa-pencil"
+                                    aria-hidden="true"></i></button>
+                        </div>
+                        <div class="col">
+                            @if (cardIndex > 0){
+                                <button type="button" (click)="onDeleteCard(cardIndex)" class="trash-btn"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                            }
+                        </div>
+                    </div>
+                    @if (cardList.length == cardIndex+1){
+                        <button type="button" (click)="onAddCard()" class="secondary-btn">Add Card</button>
+                    }
+                </div>
             </div>
+            } @empty {
+            {{noDataFound}}
+            }
+    
+            @if (cardList.length != 0) {
+                <div class="row mt-2">
+                    <div class="col">
+                        <button type="button" (click)="getAllCardDetails()" class="primary-btn">Get All Card Details</button>
+                    </div>
+                </div>
+            } @else {
+               <div class="row mt-2">
+                    <div class="col">
+                        <button type="button" (click)="onAddCard()" class="secondary-btn">Add Card</button>
+                    </div>
+               </div>
+            }
         </div>
-        } @empty {
-        {{noDataFound}}
-        }
-
-        @if (cardList.length != 0) {
-            <div class="row mt-2">
-                <div class="col">
-                    <button type="button" class="primary-btn">Get All Card Details</button>
-                </div>
-            </div>
-        } @else {
-           <div class="row mt-2">
-                <div class="col">
-                    <button type="button" (click)="onAddCard()" class="secondary-btn">Add Card</button>
-                </div>
-           </div>
-        }
+    </div>    
+} @else {
+    <div class="row mb-4">
+        <div class="col">
+            <h3>Available data</h3>
+        </div>
+        <div class="col">
+            <button class="trash-btn" (click)="closeDetails()">
+                <i class="fa fa-times" aria-hidden="true"></i>
+            </button>
+        </div>
     </div>
-</div>
+    <div class="row">
+        <div class="col">
+            <code>
+                {{cardList | json}}
+            </code>
+        </div>
+    </div>
+    
+    
+}

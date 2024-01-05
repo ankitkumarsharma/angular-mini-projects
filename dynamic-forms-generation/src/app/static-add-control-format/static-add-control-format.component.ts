@@ -2,18 +2,19 @@ import { Component } from '@angular/core';
 import { LABELS } from '../core/app.constant';
 import { CardListModel } from './core/static-add-control-format.models';
 import { CARD_LIST } from './core/static-add-control-format.constant';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-static-add-control-format',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './static-add-control-format.component.html',
   styleUrl: './static-add-control-format.component.scss'
 })
 export class StaticAddControlFormatComponent {
   noDataFound: string = LABELS.noDataFound;
   cardList: CardListModel[] = CARD_LIST;
-
+  allDetailsFlag!:boolean;
   onAddCard() {
     let card = {
       title: 'Card One',
@@ -56,5 +57,11 @@ export class StaticAddControlFormatComponent {
 
   onDeleteControl(cardIndex: number, controlIndex: number) {
     this.cardList[cardIndex].controlList.splice(controlIndex, 1);
+  }
+  getAllCardDetails(){
+    this.allDetailsFlag = true;
+  }
+  closeDetails(){
+    this.allDetailsFlag = false;
   }
 }
