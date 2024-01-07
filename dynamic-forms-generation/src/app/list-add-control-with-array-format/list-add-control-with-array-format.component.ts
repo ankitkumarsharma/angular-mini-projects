@@ -23,14 +23,14 @@ export class ListAddControlWithArrayFormatComponent implements OnInit {
   cardActiveIndex: number = 0;
   cardEditFlag!: boolean;
   dynamicCardFormGroup!: FormGroup;
-  dynamicCardFormArray:string[] = [];
+  dynamicCardFormArray: string[] = [];
   controlList: ControlListModel[] = CONTROL_LIST;
   cardPanelList: ControlListModel[] = CARD_PANEL_LIST;
   addControlFormGroup!: FormGroup;
   addControlFormGroupSubmitted!: boolean;
   controlEditIndex!: number;
   controlEditFlag!: boolean;
-  cardCounter:number = 0;
+  cardCounter: number = 0;
   ngOnInit(): void {
     this.initAddCardFormGroup();
     this.initAddControlFormGroup();
@@ -75,11 +75,23 @@ export class ListAddControlWithArrayFormatComponent implements OnInit {
       this.addCardFormGroup.markAllAsTouched();
     }
   }
-  getCardFormArray(arrayName:string, control:any){
-    console.log(arrayName)
-    console.log(control)
+  getCardFormArray(arrayName: string, control: any) {
     let formArray = this.dynamicCardFormGroup.get(arrayName) as FormArray;
     formArray.push(control);
+  }
+  updateCardFormArray(arrayName: string, arrayIndex: number, control: any) {
+    let formArray = this.dynamicCardFormGroup.get(arrayName) as FormArray;
+    formArray.controls[arrayIndex] = control;
+  }
+  deleteControlFromCardFormArray(arrayName: string, arrayIndex: number) {
+    let formArray = this.dynamicCardFormGroup.get(arrayName) as FormArray;
+    formArray.removeAt(arrayIndex)
+  }
+  setControlInFormArray(name: string) {
+    let addControlFormGroup = new FormGroup({
+      [name]: new FormControl('')
+    });
+    return addControlFormGroup;
   }
   onCardEdit(index: number) {
     this.cardEditFlag = true;
@@ -122,8 +134,6 @@ export class ListAddControlWithArrayFormatComponent implements OnInit {
     this.dynamicCardFormGroup = new FormGroup({});
   }
   addControl(value: any) {
-    console.log(this.dynamicCardFormArray)
-    console.log(this.cardActiveIndex)
     if (this.cardList.length) {
       if (this.cardActiveIndex) {
         this.addControlFormGroupSubmitted = true;
@@ -134,14 +144,10 @@ export class ListAddControlWithArrayFormatComponent implements OnInit {
           control.name = value.name;
           control.type = value.type;
           controls = [...controls, control];
-          let addControlFormGroup = new FormGroup({
-            [value.name]: new FormControl('')
-          }) ;
-          this.getCardFormArray(this.dynamicCardFormArray[this.cardActiveIndex-1],addControlFormGroup);
+          this.getCardFormArray(this.dynamicCardFormArray[this.cardActiveIndex - 1], this.setControlInFormArray(value.name));
           this.cardList[this.cardActiveIndex - 1].controlsList = controls;
           this.resetAddControlFormGroup();
           this.cardActiveIndex = 0;
-          console.log(this.dynamicCardFormGroup.value)
         } else {
           this.addControlFormGroup.markAllAsTouched();
         }
@@ -176,7 +182,8 @@ export class ListAddControlWithArrayFormatComponent implements OnInit {
     this.addControlFormGroupSubmitted = true;
     if (this.addControlFormGroup.valid) {
       this.cardList[this.cardEditIndex].controlsList[this.controlEditIndex] = this.addControlFormGroup.value;
-      this.dynamicCardFormGroup.addControl(this.addControlFormGroup.value.name, new FormControl(''));
+      this.updateCardFormArray(this.dynamicCardFormArray[this.cardActiveIndex - 1], this.controlEditIndex, this.setControlInFormArray(this.addControlFormGroup.controls['name'].value));
+      this.dynamicCardFormGroup.updateValueAndValidity();
       this.resetAddControlFormGroup();
       this.cardActiveIndex = 0;
       this.controlEditFlag = false;
@@ -185,12 +192,11 @@ export class ListAddControlWithArrayFormatComponent implements OnInit {
     }
   }
   onControlDelete(cardIndex: number, controlIndex: number) {
-    let data = this.cardList[cardIndex].controlsList[controlIndex];
-    this.dynamicCardFormGroup.removeControl(data.name);
+    this.deleteControlFromCardFormArray(this.dynamicCardFormArray[this.cardActiveIndex - 1], this.controlEditIndex);
     this.cardList[cardIndex].controlsList.splice(controlIndex, 1);
   }
   // dynamic form submit
-  onDynamicCardFormGroupSubmit(){
+  onDynamicCardFormGroupSubmit() {
     console.log(this.dynamicCardFormGroup.value)
     console.log(this.cardList)
   }

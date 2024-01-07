@@ -3,67 +3,68 @@
         <form [formGroup]="dynamicCardFormGroup" (ngSubmit)="onDynamicCardFormGroupSubmit()">
             <div class="card-panel mb-3">
                 @for (item of cardList; track item.name; let cardIndex = $index) {
-                    <div class="card" [ngClass]="{'active': cardActiveIndex == cardIndex+1}"
-                        (click)="onCardSelect(cardIndex+1)">
-                        <div class="row">
-                            <div class="col-6">
-                                <h3 class="ak-title">{{item.name}}</h3>
-                            </div>
-                            <div class="col-6">
-                                <ul class="list-inline action-list pull-right">
-                                    <li class="list-inline-item">
-                                        <a (click)="onCardEdit(cardIndex)"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a (click)="onCardDelete(cardIndex)"><i class="fa fa-trash" aria-hidden="true"></i></a>
-                                    </li>
-                                </ul>
-                            </div>
+                <div class="card" [ngClass]="{'active': cardActiveIndex == cardIndex+1}"
+                    (click)="onCardSelect(cardIndex+1)">
+                    <div class="row">
+                        <div class="col-6">
+                            <h3 class="ak-title">{{item.name}}</h3>
                         </div>
-                        <p class="ak-para">{{item.desc}}</p>
-                        <hr />
-                        <h3 class="ak-sub-title">Card Controls</h3>
-                        @for (control of item.controlsList; track control.name; let controlIndex=$index) {
-                        <div class="row form-group mb-3">
-                            <div class="col-4">
-                                <label for="">{{control.label}}</label>
-                            </div>
-                            <div class="col-8">
-                                <div class="row">
-                                    <div class="col-10">
-                                        <input [name]="control.name" [formControlName]="control.name" [type]="control.type"
-                                            class="form-control">
-                                    </div>
-                                    <div class="col-2">
-                                        <ul class="list-inline action-list pull-right">
-                                            <li class="list-inline-item">
-                                                <a (click)="onControlEdit(cardIndex,controlIndex)"><i class="fa fa-pencil"
-                                                        aria-hidden="true"></i></a>
-                                            </li>
-                                            <li class="list-inline-item">
-                                                <a (click)="onControlDelete(cardIndex,controlIndex)"><i class="fa fa-trash"
-                                                        aria-hidden="true"></i></a>
-                                            </li>
-                                        </ul>
-                                    </div>
+                        <div class="col-6">
+                            <ul class="list-inline action-list pull-right">
+                                <li class="list-inline-item">
+                                    <a (click)="onCardEdit(cardIndex)"><i class="fa fa-pencil"
+                                            aria-hidden="true"></i></a>
+                                </li>
+                                <li class="list-inline-item">
+                                    <a (click)="onCardDelete(cardIndex)"><i class="fa fa-trash"
+                                            aria-hidden="true"></i></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <p class="ak-para">{{item.desc}}</p>
+                    <hr />
+                    <h3 class="ak-sub-title">Card Controls</h3>
+                    @for (control of item.controlsList; track control.name; let controlIndex=$index) {
+                    <div class="row form-group mb-3">
+                        <div class="col-4">
+                            <label for="">{{control.label}}</label>
+                        </div>
+                        <div class="col-8">
+                            <div class="row">
+                                <div class="col-10">
+                                    <input [name]="control.name" [formControlName]="control.name" [type]="control.type"
+                                        class="form-control">
+                                </div>
+                                <div class="col-2">
+                                    <ul class="list-inline action-list pull-right">
+                                        <li class="list-inline-item">
+                                            <a (click)="onControlEdit(cardIndex,controlIndex)"><i class="fa fa-pencil"
+                                                    aria-hidden="true"></i></a>
+                                        </li>
+                                        <li class="list-inline-item">
+                                            <a (click)="onControlDelete(cardIndex,controlIndex)"><i class="fa fa-trash"
+                                                    aria-hidden="true"></i></a>
+                                        </li>
+                                    </ul>
                                 </div>
                             </div>
                         </div>
-                        } @empty {
-                        {{noDataFound}}
-                        }
                     </div>
                     } @empty {
                     {{noDataFound}}
                     }
+                </div>
+                } @empty {
+                {{noDataFound}}
+                }
             </div>
             <ul class="list-inline">
                 <li class="list-inline-item">
                     <button type="submit" class="primary-btn">Submit Card Group</button>
                 </li>
                 <li class="list-inline-item">
-                    <button type="button" (click)="resetDynamicCardFormGroup()"
-                        class="secondary-btn">Reset</button>
+                    <button type="button" (click)="resetDynamicCardFormGroup()" class="secondary-btn">Reset</button>
                 </li>
             </ul>
         </form>
@@ -125,6 +126,7 @@
                 </div>
             </form>
         </div>
+        @if (cardList.length > 0){
         <div class="card">
             <h3 class="ak-sub-title">Add Controls in Card</h3>
             <form [formGroup]="addControlFormGroup" (ngSubmit)="addControl(addControlFormGroup.value)">
@@ -205,5 +207,6 @@
                 </div>
             </form>
         </div>
+        }
     </div>
 </div>

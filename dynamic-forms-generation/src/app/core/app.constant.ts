@@ -24,7 +24,7 @@ export const MENU_LIST: MenuListModel[] = [
     route: '/list-add-control-format'
   },
   {
-    label: 'List Add Control Format(With Array)',
+    label: 'List Add Control Format(With formArray)',
     route: '/list-add-control-with-array-format'
   },
   {

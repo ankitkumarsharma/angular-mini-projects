@@ -169,7 +169,7 @@ export class ListAddControlFormatComponent implements OnInit {
     this.cardList[cardIndex].controlsList.splice(controlIndex, 1);
   }
   // dynamic form submit
-  onDynamicCardFormGroupSubmit(){
+  onDynamicCardFormGroupSubmit() {
     console.log(this.dynamicCardFormGroup.value)
     console.log(this.cardList)
   }

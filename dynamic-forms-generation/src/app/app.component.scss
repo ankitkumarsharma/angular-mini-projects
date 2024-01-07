@@ -7,7 +7,8 @@
         min-width: 260px;
         text-align: center;
         a{
-            font-size: 16px;
+            font-size: 14px;
+            padding: 10px;
             text-decoration: none;
             &.router-active{
                 color: $primaryColor;
