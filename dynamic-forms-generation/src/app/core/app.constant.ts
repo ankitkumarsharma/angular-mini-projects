@@ -24,6 +24,10 @@ export const MENU_LIST: MenuListModel[] = [
     route: '/list-add-control-format'
   },
   {
+    label: 'List Add Control Format(With Array)',
+    route: '/list-add-control-with-array-format'
+  },
+  {
     label: 'Static Add Control Format',
     route: '/static-add-control-format'
   }
@@ -59,38 +63,38 @@ export const DYNAMIC_FORM_CONFIG_DATA: DynamicFormsConfigModel[] = [
 ]
 
 export const CARD_LIST: CardListModel[] = [
-  {
-    name: 'card1',
-    desc: 'desc 1',
-    controlsList: [
-      // {
-      //   type: 'date',
-      //   label: 'Today Date',
-      //   name: 'date',
-      //   value: '',
-      //   validations: [
-      //     {
-      //       name: 'required',
-      //       validator: 'required',
-      //       message: 'Date is required'
-      //     }
-      //   ]
-      // },
-      // {
-      //   type: 'text',
-      //   label: 'Name',
-      //   name: 'name',
-      //   value: '',
-      //   validations: [
-      //     {
-      //       name: 'required',
-      //       validator: 'required',
-      //       message: 'Name is required'
-      //     }
-      //   ]
-      // }
-    ]
-  }
+  // {
+  //   name: 'card1',
+  //   desc: 'desc 1',
+  //   controlsList: [
+  //     // {
+  //     //   type: 'date',
+  //     //   label: 'Today Date',
+  //     //   name: 'date',
+  //     //   value: '',
+  //     //   validations: [
+  //     //     {
+  //     //       name: 'required',
+  //     //       validator: 'required',
+  //     //       message: 'Date is required'
+  //     //     }
+  //     //   ]
+  //     // },
+  //     // {
+  //     //   type: 'text',
+  //     //   label: 'Name',
+  //     //   name: 'name',
+  //     //   value: '',
+  //     //   validations: [
+  //     //     {
+  //     //       name: 'required',
+  //     //       validator: 'required',
+  //     //       message: 'Name is required'
+  //     //     }
+  //     //   ]
+  //     // }
+  //   ]
+  // }
 ];
 
 export const CONTROL_LIST: ControlListModel[] = [
