@@ -30,6 +30,10 @@ export const MENU_LIST: MenuListModel[] = [
   {
     label: 'Static Add Control Format',
     route: '/static-add-control-format'
+  },
+  {
+    label: 'Dynamic Forms With FormArray Format',
+    route: '/dynamic-forms'
   }
 ];
 

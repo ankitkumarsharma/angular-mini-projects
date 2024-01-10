@@ -4,7 +4,7 @@
       <app-contact />
       <ul class="list-inline nav-menu">
         @for (item of menuList; track $index) {
-          <li class="list-inline-item">
+          <li class="list-inline-item mb-3">
             <a [routerLink]="item.route" [routerLinkActive]="'router-active'">{{item.label}}</a>
           </li>
         } @empty {

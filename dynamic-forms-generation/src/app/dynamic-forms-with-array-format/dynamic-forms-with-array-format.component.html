@@ -1,0 +1,73 @@
+<div class="row">
+    <div class="col">
+        <form [formGroup]="cardForm">
+            <div formArrayName="cardList">
+                @for (card of getCardList().controls; track card; let i = $index) {
+                <div [formGroupName]="i" class="row">
+                    <div class="col-10">
+                        <div [formGroup]="getCardGroup(i)" class="card">
+                            <div formArrayName="card">
+                                @for (control of getControlList(i).controls; track control; let j = $index) {
+                                <div class="row" [formGroupName]="j">
+                                    <div class="col-1">
+                                        Controls
+                                    </div>
+                                    <div class="col-8">
+                                        <div class="row form-group mb-4">
+                                            <div class="col">
+                                                <input type="text" formControlName="name" class="form-control"
+                                                    placeholder="Add name">
+                                            </div>
+                                            <div class="col">
+                                                <input type="text" formControlName="feature" class="form-control"
+                                                    placeholder="Add feature">
+                                            </div>
+                                            <div class="col">
+                                                <input type="text" formControlName="category" class="form-control"
+                                                    placeholder="Add category">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-1">
+                                        <a class="error" (click)="removeControls(i,j)"><i class="fa fa-trash"
+                                                aria-hidden="true"></i></a>
+                                    </div>
+                                    <div class="col-2">
+                                        <button type="button" (click)="addControls(i)" class="primary-btn">Add
+                                            Controls</button>
+                                    </div>
+                                </div>
+                                } @empty {
+                                {{noDataFound}}
+                                <div class="row">
+                                    <div class="col-2 mt-2">
+                                        <button type="button" (click)="addControls(i)" class="primary-btn">Add
+                                            Controls</button>
+                                    </div>
+                                </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="row mb-3">
+                            <div class="col">
+                                <button type="button" class="edit-btn"><i class="fa fa-pencil"
+                                        aria-hidden="true"></i></button>
+                            </div>
+                            <div class="col">
+                                <button type="button" (click)="removeCard(i)" class="trash-btn"><i class="fa fa-trash"
+                                        aria-hidden="true"></i></button>
+                            </div>
+                        </div>
+                        <button type="button" (click)="addCard()" class="secondary-btn">Add Card</button>
+                    </div>
+                </div>
+                } @empty {
+                {{noDataFound}}
+                }
+            </div>
+        </form>
+        <button type="button" (click)="onSubmit()" class="secondary-btn">Submit</button>
+    </div>
+</div>
