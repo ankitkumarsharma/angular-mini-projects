@@ -18,16 +18,57 @@
                                     <div class="col-8">
                                         <div class="row form-group mb-4">
                                             <div class="col">
-                                                <input type="text" formControlName="name" class="form-control"
+                                                <input type="text" [ngClass]="{'is-invalid': getControlErrors(i,j,'name')}" (blur)="getName(i,j)" formControlName="name" class="form-control"
                                                     placeholder="Add name">
+                                                @if (getControlErrors(i,j,'name')) {
+                                                    <div class="error-block">
+                                                        <ul class="list-inline">
+                                                            @if (getControlHasError(i,j,'name','required')) {
+                                                                <li class="list-inline-item">
+                                                                    Name is required
+                                                                </li>
+                                                            }
+                                                        </ul>
+                                                    </div>
+                                                }
                                             </div>
                                             <div class="col">
-                                                <input type="text" formControlName="feature" class="form-control"
+                                                <input type="text" [ngClass]="{'is-invalid': getControlErrors(i,j,'feature')}" formControlName="feature" class="form-control"
                                                     placeholder="Add feature">
+                                                    @if (getControlErrors(i,j,'feature')) {
+                                                        <div class="error-block">
+                                                            <ul class="list-inline">
+                                                                @if (getControlHasError(i,j,'feature','maxlength')) {
+                                                                    <li class="list-inline-item">
+                                                                        Feature length up to 5 chars only
+                                                                    </li>
+                                                                } @else if (getControlHasError(i,j,'feature','featureWithName')) {
+                                                                    <li class="list-inline-item">
+                                                                        In Feature, you should use first two letter of your Name
+                                                                    </li>
+                                                                }
+                                                            </ul>
+                                                        </div>
+                                                    }
                                             </div>
                                             <div class="col">
-                                                <input type="text" formControlName="category" class="form-control"
+                                                <input type="text" [ngClass]="{'is-invalid': getControlErrors(i,j,'category')}" formControlName="category" class="form-control"
                                                     placeholder="Add category">
+                                                    @if (getControlErrors(i,j,'category')) {
+                                                        <div class="error-block">
+                                                            <ul class="list-inline">
+                                                                @if (getControlHasError(i,j,'category','required')) {
+                                                                    <li class="list-inline-item">
+                                                                        Category is required
+                                                                    </li>
+                                                                } @else if (getControlHasError(i,j,'category','pattern')) {
+                                                                    <li class="list-inline-item">
+                                                                        Only Characters [a-z,A-Z] Allowed
+                                                                    </li>
+                                                                }
+                                                            </ul>
+                                                        </div>
+                                                    }
                                             </div>
                                         </div>
                                     </div>
@@ -37,7 +78,7 @@
                                     </div>
                                     <div class="col-2">
                                         @if (getControlList(i).controls.length-1 == j) {
-                                        <button type="button" (click)="addControls(i)" class="primary-btn">Add
+                                        <button [disabled]="getControlList(i).controls.length == 3" type="button" (click)="addControls(i)" class="primary-btn">Add
                                             Controls</button>
                                         }
                                     </div>
@@ -69,7 +110,7 @@
                         @if (getCardList().controls.length-1 == i) {
                             <div class="row">
                                 <div class="col">
-                                    <button type="button" (click)="addCard()" class="secondary-btn">Add Card</button>
+                                    <button [disabled]="getCardList().controls.length == 3" type="button" (click)="addCard()" class="secondary-btn">Add Card</button>
                                 </div>
                             </div>
                         }
