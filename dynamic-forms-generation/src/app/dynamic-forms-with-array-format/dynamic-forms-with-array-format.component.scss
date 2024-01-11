@@ -1,6 +1,11 @@
-.error{
-    font-size: 20px;
-}
-.form-control{
+.form-control {
     font-size: 15px;
+}
+
+.card {
+    .remove-icon {
+        .error {
+            font-size: 20px;
+        }
+    }
 }

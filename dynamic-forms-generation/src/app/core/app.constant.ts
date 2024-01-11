@@ -3,6 +3,7 @@ import { CardListModel, ControlListModel, MenuListModel } from "./app.models";
 
 export const LABELS = {
   home: 'Home',
+  title: 'Different Type of Dynamic Forms, please check...',
   fullName: 'Ankit K Sharma',
   route: {
     home: '/'

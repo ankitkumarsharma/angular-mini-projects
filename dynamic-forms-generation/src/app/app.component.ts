@@ -7,13 +7,14 @@ import { ContactComponent } from "./shared/contact/contact.component";
 import { DynamicFormComponent } from "./shared/dynamic-form/dynamic-form.component";
 
 @Component({
-    selector: 'app-root',
-    standalone: true,
-    templateUrl: './app.component.html',
-    styleUrl: './app.component.scss',
-    imports: [CommonModule, RouterOutlet, ContactComponent, DynamicFormComponent,RouterModule]
+  selector: 'app-root',
+  standalone: true,
+  templateUrl: './app.component.html',
+  styleUrl: './app.component.scss',
+  imports: [CommonModule, RouterOutlet, ContactComponent, DynamicFormComponent, RouterModule]
 })
 export class AppComponent {
   menuList: MenuListModel[] = MENU_LIST;
-  noDataFound:string = LABELS.noDataFound;
+  noDataFound: string = LABELS.noDataFound;
+  title: string = LABELS.title;
 }

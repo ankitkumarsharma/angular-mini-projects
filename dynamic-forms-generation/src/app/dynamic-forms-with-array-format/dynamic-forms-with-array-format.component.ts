@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { LABELS } from '../core/app.constant';
 import { CommonModule } from '@angular/common';
 import { AbstractControl, FormArray, FormControl, FormGroup, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { ERROR_MESSAGES } from './core/dynamic-forms-with-array-format.constant';
+import { ErrorMessagesModel } from './core/dynamic-forms-with-array-format.models';
 
 @Component({
   selector: 'app-dynamic-forms-with-array-format',
@@ -13,7 +15,8 @@ import { AbstractControl, FormArray, FormControl, FormGroup, ReactiveFormsModule
 export class DynamicFormsWithArrayFormatComponent implements OnInit {
   noDataFound: string = LABELS.noDataFound;
   cardForm!: FormGroup;
-  currentName:string = '';
+  currentName: string = '';
+  errorMessage: ErrorMessagesModel = ERROR_MESSAGES;
   ngOnInit(): void {
     // step 2
     this.initCardForm();
@@ -34,9 +37,9 @@ export class DynamicFormsWithArrayFormatComponent implements OnInit {
   addNewControls() {
     // validation -- step 17
     return new FormGroup({
-      name: new FormControl('',[Validators.required]),
-      feature: new FormControl('',[Validators.maxLength(5),this.featureShouldPreNameValidator()]),
-      category: new FormControl('',[Validators.required, Validators.pattern(LABELS.pattern.onlyChar)]),
+      name: new FormControl('', [Validators.required]),
+      feature: new FormControl('', [Validators.maxLength(5), this.featureShouldPreNameValidator()]),
+      category: new FormControl('', [Validators.required, Validators.pattern(LABELS.pattern.onlyChar)]),
     })
   }
   // step 5
@@ -74,33 +77,37 @@ export class DynamicFormsWithArrayFormatComponent implements OnInit {
     console.log(this.cardForm.value);
   }
   // step 14
-  getControlGroup(i: number, j:number) {
+  getControlGroup(i: number, j: number) {
     return this.getControlList(i).controls[j] as FormGroup;
   }
   // step 15
-  getSingleControl(i:number,j:number,control:string){
-    return this.getControlGroup(i,j).controls[control];
+  getSingleControl(i: number, j: number, control: string) {
+    return this.getControlGroup(i, j).controls[control];
   }
   // step 16
-  getName(i:number,j:number) {
-    this.currentName = this.getSingleControl(i,j,'name').value;
+  getName(i: number, j: number) {
+    this.currentName = this.getSingleControl(i, j, 'name').value;
   }
   // step 18
-  getControlErrors(i:number,j:number,control:string){
-    return this.getSingleControl(i,j,control).invalid; 
+  getControlErrors(i: number, j: number, control: string) {
+    return this.getSingleControl(i, j, control).invalid;
   }
-  getControlHasError(i:number,j:number,control:string,error:string){
-    return this.getSingleControl(i,j,control).hasError(error)
+  getControlHasError(i: number, j: number, control: string, error: string) {
+    return this.getSingleControl(i, j, control).hasError(error)
   }
   // step 19
-  featureShouldPreNameValidator() : ValidatorFn {
-    return (control:AbstractControl): ValidationErrors | null => {
+  featureShouldPreNameValidator(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
       const feature = control.value;
-      if(!feature){
+      if (!feature) {
         return null;
       }
       let firstTwoCharName = this.currentName.slice(0, 2);
-      return feature.indexOf(firstTwoCharName) == -1 ? {featureWithName: true} : null;
+      return feature.indexOf(firstTwoCharName) == -1 ? { featureWithName: true } : null;
     }
+  }
+  // step 20
+  editCard(i: number) {
+    // code
   }
 }
