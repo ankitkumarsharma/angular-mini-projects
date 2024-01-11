@@ -7,6 +7,9 @@
                     <div class="col-10">
                         <div [formGroup]="getCardGroup(i)" class="card">
                             <div formArrayName="card">
+                                <h3 class="ak-sub-title">
+                                    Card {{i+1}}
+                                </h3>
                                 @for (control of getControlList(i).controls; track control; let j = $index) {
                                 <div class="row" [formGroupName]="j">
                                     <div class="col-1">
@@ -33,8 +36,10 @@
                                                 aria-hidden="true"></i></a>
                                     </div>
                                     <div class="col-2">
+                                        @if (getControlList(i).controls.length-1 == j) {
                                         <button type="button" (click)="addControls(i)" class="primary-btn">Add
                                             Controls</button>
+                                        }
                                     </div>
                                 </div>
                                 } @empty {
@@ -56,18 +61,32 @@
                                         aria-hidden="true"></i></button>
                             </div>
                             <div class="col">
+
                                 <button type="button" (click)="removeCard(i)" class="trash-btn"><i class="fa fa-trash"
                                         aria-hidden="true"></i></button>
                             </div>
                         </div>
-                        <button type="button" (click)="addCard()" class="secondary-btn">Add Card</button>
+                        @if (getCardList().controls.length-1 == i) {
+                            <div class="row">
+                                <div class="col">
+                                    <button type="button" (click)="addCard()" class="secondary-btn">Add Card</button>
+                                </div>
+                            </div>
+                        }
                     </div>
                 </div>
                 } @empty {
                 {{noDataFound}}
+                <div class="row mt-3">
+                    <div class="col">
+                        <button type="button" (click)="addCard()" class="secondary-btn">Add Card</button>
+                    </div>
+                </div>
                 }
             </div>
         </form>
-        <button type="button" (click)="onSubmit()" class="secondary-btn">Submit</button>
+        @if (getCardList().controls.length > 0) {
+            <button type="button" (click)="onSubmit()" class="secondary-btn mt-3">Submit</button>
+        }
     </div>
 </div>
