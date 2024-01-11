@@ -11,6 +11,9 @@ export const LABELS = {
   errorMessage: {
     panelNotSelected: 'Panel is not Selected, please select Panel from left side!!',
     panelNotCreated: 'Panel is not listed, please create Panel from right side!!'
+  },
+  pattern: {
+    onlyChar: '^[a-zA-Z]*$',
   }
 }
 
