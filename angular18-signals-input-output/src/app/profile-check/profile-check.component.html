@@ -1,9 +1,41 @@
-<p>profile-check works!</p>
-{{todoList | json}}
 <div class="row">
     <div class="col-4">
-        <select name="" id="" class="form-select">
-            <option value="he">Hello</option>
-        </select>
+        <div class="form-group mb-3">
+            <select (change)="onChangeProfile($event.target)" class="form-select">
+                @for (item of todoList; track $index) {
+                <option value="{{item.id}}">{{item.label}}</option>
+                }
+            </select>
+        </div>
+    </div>
+    <div class="col-4">
+        <div class="card">
+            <div class="card-body">
+                @if (activeProfile) {
+                <table class="w-100">
+                    <tr>
+                        <th>Id</th>
+                        <th>Title</th>
+                        <th>Desc</th>
+                        <th>Image</th>
+                    </tr>
+                    <tr>
+                        <td>{{activeProfile?.id}}</td>
+                        <td>{{activeProfile?.label}}</td>
+                        <td>{{activeProfile?.title}}</td>
+                        <td><img [src]="activeProfile?.thumbnailUrl" alt="" /></td>
+                    </tr>
+                </table>
+                } @else {
+                <h6>No Active Profile!!!</h6>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-4">
+        <profile (active)="onActive($event)" [profile]="profile" />
     </div>
 </div>

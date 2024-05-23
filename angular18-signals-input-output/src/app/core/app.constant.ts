@@ -1,6 +1,7 @@
 export const TODO_LIST_JSON = [
     {
         "albumId": 1,
+        "label": "Accusamus",
         "id": 1,
         "title": "accusamus beatae ad facilis cum similique qui sunt",
         "url": "https://via.placeholder.com/600/92c952",
@@ -8,6 +9,7 @@ export const TODO_LIST_JSON = [
       },
       {
         "albumId": 1,
+        "label": "Reprehenderit",
         "id": 2,
         "title": "reprehenderit est deserunt velit ipsam",
         "url": "https://via.placeholder.com/600/771796",
@@ -15,6 +17,7 @@ export const TODO_LIST_JSON = [
       },
       {
         "albumId": 1,
+        "label": "Officia",
         "id": 3,
         "title": "officia porro iure quia iusto qui ipsa ut modi",
         "url": "https://via.placeholder.com/600/24f355",
@@ -22,6 +25,7 @@ export const TODO_LIST_JSON = [
       },
       {
         "albumId": 1,
+        "label": "Culpa",
         "id": 4,
         "title": "culpa odio esse rerum omnis laboriosam voluptate repudiandae",
         "url": "https://via.placeholder.com/600/d32776",
@@ -29,6 +33,7 @@ export const TODO_LIST_JSON = [
       },
       {
         "albumId": 1,
+        "label": "Natus",
         "id": 5,
         "title": "natus nisi omnis corporis facere molestiae rerum in",
         "url": "https://via.placeholder.com/600/f66b97",
@@ -36,6 +41,7 @@ export const TODO_LIST_JSON = [
       },
       {
         "albumId": 1,
+        "label": "Accusamus",
         "id": 6,
         "title": "accusamus ea aliquid et amet sequi nemo",
         "url": "https://via.placeholder.com/600/56a8c2",
@@ -43,6 +49,7 @@ export const TODO_LIST_JSON = [
       },
       {
         "albumId": 1,
+        "label": "Delectus",
         "id": 7,
         "title": "officia delectus consequatur vero aut veniam explicabo molestias",
         "url": "https://via.placeholder.com/600/b0f7cc",
@@ -50,6 +57,7 @@ export const TODO_LIST_JSON = [
       },
       {
         "albumId": 1,
+        "label": "Laborum",
         "id": 8,
         "title": "aut porro officiis laborum odit ea laudantium corporis",
         "url": "https://via.placeholder.com/600/54176f",
@@ -57,6 +65,7 @@ export const TODO_LIST_JSON = [
       },
       {
         "albumId": 1,
+        "label": "Autem",
         "id": 9,
         "title": "qui eius qui autem sed",
         "url": "https://via.placeholder.com/600/51aa97",
@@ -64,6 +73,7 @@ export const TODO_LIST_JSON = [
       },
       {
         "albumId": 1,
+        "label": "Aeatae",
         "id": 10,
         "title": "beatae et provident et ut vel",
         "url": "https://via.placeholder.com/600/810b14",
