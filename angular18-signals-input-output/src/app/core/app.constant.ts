@@ -80,3 +80,16 @@ export const TODO_LIST_JSON = [
         "thumbnailUrl": "https://via.placeholder.com/150/810b14"
       },
 ]
+
+export const URL = {
+  TODO_LIST: 'https://jsonplaceholder.typicode.com/todos',
+  USER_LIST: 'https://jsonplaceholder.typicode.com/users',
+  POST_LIST: 'https://jsonplaceholder.typicode.com/posts',
+  ALBUM_LIST: 'https://jsonplaceholder.typicode.com/albums',
+  PHOTO_LIST: 'https://jsonplaceholder.typicode.com/photos',
+  COMMENT_LIST: 'https://jsonplaceholder.typicode.com/comments',
+  COMPANY_LIST: 'https://jsonplaceholder.typicode.com/companies',
+  INVOICE_LIST: 'https://jsonplaceholder.typicode.com/invoices',
+  INVOICE_ITEM_LIST: 'https://jsonplaceholder.typicode.com/invoice-items',
+  TODO_LIST_JSON: 'https://jsonplaceholder.typicode.com/todos',
+}

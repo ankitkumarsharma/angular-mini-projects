@@ -36,6 +36,17 @@
 
 <div class="row">
     <div class="col-4">
-        <profile (active)="onActive($event)" [profile]="profile" />
+        @defer () {
+            <profile (active)="onActive($event)" [profile]="profile" />
+        } @loading (minimum 2s) {
+            Loading....
+        }
+    </div>
+    <div class="col-4">
+        @defer (when profileApi) {
+            <profile-api [profile]="profileApi" />
+        } @loading (minimum 2s) {
+            Loading....
+        } 
     </div>
 </div>
