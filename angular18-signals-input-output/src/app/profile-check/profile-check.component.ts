@@ -37,7 +37,7 @@ export class ProfileCheckComponent implements OnInit {
   }
 
   onChangeProfile(event:any){
-    this.profileApi = "";
+    this.profileApi = null;
     this.profile = this.todoList.find((value) => value.id == event.value);
     // get single image post with each time API hit
     this.appService.getSingleImagePost(event.value).subscribe((data)=>{
