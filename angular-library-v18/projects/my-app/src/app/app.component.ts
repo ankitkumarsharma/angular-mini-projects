@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { MyLibComponent } from 'my-lib';
+import { DUMMY_DATA_TABLE_CONFIG } from './core/app.constant';
 
 @Component({
   selector: 'app-root',
@@ -11,5 +12,6 @@ import { MyLibComponent } from 'my-lib';
 })
 export class AppComponent {
   title = 'my-app';
-  name:string = "Ankit Kumar"
+  tableConfig = DUMMY_DATA_TABLE_CONFIG;
 }
+
