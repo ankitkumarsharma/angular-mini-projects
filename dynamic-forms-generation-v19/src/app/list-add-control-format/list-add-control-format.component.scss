@@ -1,0 +1,20 @@
+@import '../scss/variable';
+.action-list{
+    li {
+        a {
+            color: $primaryColor;
+            font-size: 16px;
+        }
+    }
+}
+.card-panel{
+    height: 450px;
+    overflow-y: auto;
+    border-bottom: 1px solid $border;
+    padding: 0px 15px;
+    .card{
+        &.active{
+            border: 2px solid $primaryColor;
+        }
+    }
+}

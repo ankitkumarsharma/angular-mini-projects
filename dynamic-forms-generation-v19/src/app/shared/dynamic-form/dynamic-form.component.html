@@ -1,0 +1,19 @@
+<form [formGroup]="dynamicForm">
+    @for (control of formConfig; track $index) {
+        <div class="row form-group m-3">
+            <div class="col">
+                <label [for]="control.name">{{control.label}}</label>
+            </div>
+            <div class="col">
+                <input [ngClass]="{'is-invalid': isValid(control)}" [type]="control.type" [name]="control.name" [id]="control.name" class="form-control" [formControlName]="control.name">
+                @if (isValid(control)) {
+                    <span class="error">
+                        {{getErrorMessage(control)}}
+                    </span>
+                }
+            </div>
+        </div>
+    } @empty {
+        {{noFormData}}
+    }
+</form>

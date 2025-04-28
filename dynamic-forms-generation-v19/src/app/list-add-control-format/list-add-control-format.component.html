@@ -1,0 +1,212 @@
+<div class="row">
+    <div class="col-7">
+        <form [formGroup]="dynamicCardFormGroup" (ngSubmit)="onDynamicCardFormGroupSubmit()">
+            <div class="card-panel mb-3">
+                @for (item of cardList; track item.name; let cardIndex = $index) {
+                <div class="card" [ngClass]="{'active': cardActiveIndex == cardIndex+1}"
+                    (click)="onCardSelect(cardIndex+1)">
+                    <div class="row">
+                        <div class="col-6">
+                            <h3 class="ak-title">{{item.name}}</h3>
+                        </div>
+                        <div class="col-6">
+                            <ul class="list-inline action-list pull-right">
+                                <li class="list-inline-item">
+                                    <a (click)="onCardEdit(cardIndex)"><i class="fa fa-pencil"
+                                            aria-hidden="true"></i></a>
+                                </li>
+                                <li class="list-inline-item">
+                                    <a (click)="onCardDelete(cardIndex)"><i class="fa fa-trash"
+                                            aria-hidden="true"></i></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <p class="ak-para">{{item.desc}}</p>
+                    <hr />
+                    <h3 class="ak-sub-title">Card Controls</h3>
+                    @for (control of item.controlsList; track control.name; let controlIndex=$index) {
+                    <div class="row form-group mb-3">
+                        <div class="col-4">
+                            <label for="">{{control.label}}</label>
+                        </div>
+                        <div class="col-8">
+                            <div class="row">
+                                <div class="col-10">
+                                    <input [name]="control.name" [formControlName]="control.name" [type]="control.type"
+                                        class="form-control">
+                                </div>
+                                <div class="col-2">
+                                    <ul class="list-inline action-list pull-right">
+                                        <li class="list-inline-item">
+                                            <a (click)="onControlEdit(cardIndex,controlIndex)"><i class="fa fa-pencil"
+                                                    aria-hidden="true"></i></a>
+                                        </li>
+                                        <li class="list-inline-item">
+                                            <a (click)="onControlDelete(cardIndex,controlIndex)"><i class="fa fa-trash"
+                                                    aria-hidden="true"></i></a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    } @empty {
+                    {{noDataFound}}
+                    }
+                </div>
+                } @empty {
+                {{noDataFound}}
+                }
+            </div>
+            <ul class="list-inline">
+                <li class="list-inline-item">
+                    <button type="submit" class="primary-btn">Submit Card Group</button>
+                </li>
+                <li class="list-inline-item">
+                    <button type="button" (click)="resetDynamicCardFormGroup()" class="secondary-btn">Reset</button>
+                </li>
+            </ul>
+        </form>
+    </div>
+    <div class="col-5">
+        <div class="card">
+            <form [formGroup]="addCardFormGroup" (ngSubmit)="addCard(addCardFormGroup.value)">
+                <h3 class="ak-sub-title">Add Card</h3>
+                <div class="row form-group mb-3">
+                    <div class="col-4">
+                        <label for="">Card Name</label>
+                    </div>
+                    <div class="col-8">
+                        <input
+                            [ngClass]="{'is-invalid': addCardFormGroupSubmitted && getControlError('name',addCardFormGroup)}"
+                            type="text" formControlName="name" class="form-control">
+                        @if (addCardFormGroupSubmitted && getControlError('name',addCardFormGroup)) {
+                        <div>
+                            @if (addCardFormGroupSubmitted && getControlRequiredError('name',addCardFormGroup)) {
+                            <span class="error">{{requiredErrorDescription('Name')}}</span>
+                            }
+                        </div>
+                        }
+                    </div>
+                </div>
+                <div class="row form-group mb-3">
+                    <div class="col-4">
+                        <label for="">Card Desc</label>
+                    </div>
+                    <div class="col-8">
+                        <input
+                            [ngClass]="{'is-invalid': addCardFormGroupSubmitted && getControlError('desc',addCardFormGroup)}"
+                            type="text" formControlName="desc" class="form-control">
+                        @if (addCardFormGroupSubmitted && getControlError('desc',addCardFormGroup)) {
+                        <div>
+                            @if (addCardFormGroupSubmitted && getControlRequiredError('desc',addCardFormGroup)) {
+                            <span class="error">{{requiredErrorDescription('Desc')}}</span>
+                            }
+                        </div>
+                        }
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <ul class="list-inline">
+                            <li class="list-inline-item">
+                                @if (!cardEditFlag) {
+                                <button type="submit" class="primary-btn">Add Card</button>
+                                } @else {
+                                <button (click)="onCardUpdate()" type="button" class="primary-btn">Update Card</button>
+                                }
+                            </li>
+                            <li class="list-inline-item">
+                                <button type="button" (click)="resetAddCardFormGroup()"
+                                    class="secondary-btn">Reset</button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </form>
+        </div>
+        @if (cardList.length > 0){
+        <div class="card">
+            <h3 class="ak-sub-title">Add Controls in Card</h3>
+            <form [formGroup]="addControlFormGroup" (ngSubmit)="addControl(addControlFormGroup.value)">
+                <div class="row form-group mb-3">
+                    <div class="col-4">
+                        <label for="">Label</label>
+                    </div>
+                    <div class="col-8">
+                        <input type="text"
+                            [ngClass]="{'is-invalid': addControlFormGroupSubmitted && getControlError('label',addControlFormGroup)}"
+                            class="form-control" formControlName="label">
+                        @if (addControlFormGroupSubmitted && getControlError('label',addControlFormGroup)) {
+                        <div>
+                            @if (addControlFormGroupSubmitted && getControlRequiredError('label',addControlFormGroup)) {
+                            <span class="error">{{requiredErrorDescription('Label')}}</span>
+                            }
+                        </div>
+                        }
+                    </div>
+                </div>
+                <div class="row form-group mb-3">
+                    <div class="col-4">
+                        <label for="">Name</label>
+                    </div>
+                    <div class="col-8">
+                        <input type="text"
+                            [ngClass]="{'is-invalid': addControlFormGroupSubmitted && getControlError('name',addControlFormGroup)}"
+                            class="form-control" formControlName="name">
+                        @if (addControlFormGroupSubmitted && getControlError('name',addControlFormGroup)) {
+                        <div>
+                            @if (addControlFormGroupSubmitted && getControlRequiredError('name',addControlFormGroup)) {
+                            <span class="error">{{requiredErrorDescription('Name')}}</span>
+                            }
+                        </div>
+                        }
+                    </div>
+                </div>
+                <div class="row form-group mb-3">
+                    <div class="col-4">
+                        <label for="">Type</label>
+                    </div>
+                    <div class="col-8">
+                        <select
+                            [ngClass]="{'is-invalid': addControlFormGroupSubmitted && getControlError('type',addControlFormGroup)}"
+                            class="form-control form-select" formControlName="type">
+                            @for (item of controlList; track $index) {
+                            <option [value]="item.value">{{item.label}}</option>
+                            } @empty {
+                            {{noDataFound}}
+                            }
+                        </select>
+                        @if (addControlFormGroupSubmitted && getControlError('type',addControlFormGroup)) {
+                        <div>
+                            @if (addControlFormGroupSubmitted && getControlRequiredError('type',addControlFormGroup)) {
+                            <span class="error">{{requiredErrorDescription('Type')}}</span>
+                            }
+                        </div>
+                        }
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <ul class="list-inline">
+                            <li class="list-inline-item">
+                                @if (!controlEditFlag) {
+                                <button type="submit" class="primary-btn">Add Control</button>
+                                } @else {
+                                <button (click)="onControlUpdate()" type="button" class="primary-btn">Update
+                                    Control</button>
+                                }
+                            </li>
+                            <li class="list-inline-item">
+                                <button type="button" (click)="resetAddControlFormGroup()"
+                                    class="secondary-btn">Reset</button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </form>
+        </div>
+        }
+    </div>
+</div>

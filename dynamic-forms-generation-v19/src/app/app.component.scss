@@ -1,0 +1,19 @@
+@import './scss/common';
+.nav-menu{
+    li{
+        border: 1px solid;
+        border-radius: 60px;
+        padding: 5px;
+        min-width: 260px;
+        text-align: center;
+        a{
+            font-size: 14px;
+            padding: 10px;
+            text-decoration: none;
+            &.router-active{
+                color: $primaryColor;
+                font-weight: 700;
+            }
+        }
+    }
+}
