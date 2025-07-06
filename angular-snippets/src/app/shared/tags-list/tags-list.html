@@ -1,0 +1,13 @@
+<div class="card">
+    <div class="row">
+        <div class="col">
+            <ul class="list-inline">
+                @for (tag of tagsList; track tag) {
+                    <li class="list-inline-item">
+                        <button class="btn primary-btn">{{ tag.name }}</button>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+</div>
