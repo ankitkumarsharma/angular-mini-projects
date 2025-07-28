@@ -16,3 +16,5 @@ I am creating list for angular mini projects and latest angular features. You ca
     In this project, we'll learn , how we can create angular dynamic forms in multiple way and use it in our local project and reusablity of angular forms part.
 - ### Angular Dynamic Accordian
     In this project, we'll learn , how we can create angular dynamic accordian without any other web framework like bootstrap and use it in our local project.
+- ### Angular SSR vs SSG vs CSR
+    In this project, we'll learn , Server-Side Rendering (SSR), Static Site Generation (SSG), or Client-Side Rendering (CSR).
