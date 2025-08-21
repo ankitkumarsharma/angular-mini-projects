@@ -1,0 +1,13 @@
+<h1>
+  {{ title() }}
+</h1>
+
+
+
+@if (userList.isLoading()) {
+  <p>Loading...</p>
+} @else if (userList.error()) {
+  <p>Error: {{ userList.error() }}</p>
+} @else {
+  Data: <pre>{{ userList.value() | json }}</pre>
+}

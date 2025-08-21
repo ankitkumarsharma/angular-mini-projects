@@ -21,3 +21,5 @@ I am creating list for angular mini projects and latest angular features. You ca
     Blog - <a href="https://medium.com/@ankit_k_sharma/ssr-vs-ssg-vs-csr-in-angular-understanding-rendering-strategies-1dfdeb1d8a74" target="_blank">SSR vs SSG vs CSR in Angular: Understanding Rendering Strategies </a> 
 - ### Angular Custom Rich Text Editor
     In this project, we'll learn , How we can create custom text editor and use in app. Blog - <a href="https://medium.com/@ankit_k_sharma/how-to-create-a-custom-rich-text-editor-in-angular-step-by-step-guide-guide-f96c8c98cf8a" target="_blank">How to create a Custom Rich Text Editor in Angular (Step-by-Step Guide) </a> 
+- ### HttpResource API - A new way to fetch data with signals
+    In this project, we'll learn , How we can fetch data without httpClient and inject any service, it is the simpleast way to get or post data with api.
