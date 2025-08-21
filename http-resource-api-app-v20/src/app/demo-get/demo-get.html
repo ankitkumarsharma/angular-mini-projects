@@ -1,0 +1,27 @@
+<p>demo-get works!</p>
+<table>
+  <tr>
+    <td>
+      All Users Details
+      @if (userList.isLoading()) {
+      <p>Loading...</p>
+      } @else if (userList.error()) {
+      <p>Error: {{ userList.error() }}</p>
+      } @else {
+      Data:
+      <pre>{{ userList.value() | json }}</pre>
+      }
+    </td>
+    <td>
+      <button (click)="index.set(index() + 1)">Next User</button>
+      @if (user.isLoading()) {
+      <p>Loading...</p>
+      } @else if (user.error()) {
+      <p>Error: {{ user.error() }}</p>
+      } @else {
+      Data:
+      <pre>{{ user.value() | json }}</pre>
+      }
+    </td>
+  </tr>
+</table>

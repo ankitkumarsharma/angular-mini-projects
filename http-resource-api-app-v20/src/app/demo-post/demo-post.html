@@ -1,0 +1,27 @@
+<p>demo-post works!</p>
+<table>
+  <tr>
+    <td>
+      All Users Details
+      @if (postList.isLoading()) {
+      <p>Loading...</p>
+      } @else if (postList.error()) {
+      <p>Error: {{ postList.error() }}</p>
+      } @else {
+      Data:
+      <pre>{{ postList.value() | json }}</pre>
+      }
+    </td>
+    <td>
+      <button (click)="index.set(index() + 1)">Next Post</button>
+      @if (post.isLoading()) {
+      <p>Loading...</p>
+      } @else if (post.error()) {
+      <p>Error: {{ post.error() | json}}</p>
+      } @else {
+      Data:
+      <pre>{{ post.value() | json }}</pre>
+      }
+    </td>
+  </tr>
+</table>
