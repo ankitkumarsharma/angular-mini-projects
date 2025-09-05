@@ -23,3 +23,5 @@ I am creating list for angular mini projects and latest angular features. You ca
     In this project, we'll learn , How we can create custom text editor and use in app. Blog - <a href="https://medium.com/@ankit_k_sharma/how-to-create-a-custom-rich-text-editor-in-angular-step-by-step-guide-guide-f96c8c98cf8a" target="_blank">How to create a Custom Rich Text Editor in Angular (Step-by-Step Guide) </a> 
 - ### HttpResource API - A new way to fetch data with signals
     In this project, we'll learn , How we can fetch data without httpClient and inject any service, it is the simpleast way to get or post data with api.
+- ### Signal Forms - A game changing features
+    In this project, we'll learn , A game changing features comes in v21, right now in experimental phase, we can try only, it may change in future. A new era for forms in angular
