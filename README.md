@@ -25,3 +25,5 @@ I am creating list for angular mini projects and latest angular features. You ca
     In this project, we'll learn , How we can fetch data without httpClient and inject any service, it is the simpleast way to get or post data with api.
 - ### Signal Forms - A game changing features
     In this project, we'll learn , A game changing features comes in v21, right now in experimental phase, we can try only, it may change in future. A new era for forms in angular
+- ### Local JSON Project - How to run local dummy json server for Angular
+    In this project, we'll learn , How we can create and use json dummy server to fetch api on local for Angular project
