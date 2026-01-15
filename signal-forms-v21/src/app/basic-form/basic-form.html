@@ -1,0 +1,23 @@
+<p>basic-form works!</p>
+<form>
+    <input type="email" [formField]="loginForm.email">
+    @if (loginForm.email().touched() && loginForm.email().errors().length) {
+    @for (err of loginForm.email().errors(); track $index) {
+    <span style="color:red">
+        {{ err.message }}
+    </span>
+    }
+    }
+    <input type="password" [formField]="loginForm.password">
+    @if (loginForm.password().touched() && loginForm.password().errors().length) {
+    @for (err of loginForm.password().errors(); track $index) {
+    <span style="color:red">
+        {{ err.message }}
+    </span>
+    }
+    }
+    <button type="submit" (click)="onSubmit()">Submit</button>
+</form>
+<br />
+Email : {{loginForm.email().value()}} <br />
+Password : {{loginForm.password().value()}} <br />
