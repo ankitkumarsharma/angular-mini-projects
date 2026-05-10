@@ -2,9 +2,27 @@
 <form>
     <label for="name">Name:</label>
     <input type="text" [formField]="userForm.name" />
+    @if (userForm.name().touched() && userForm.name().errors().length) {
+    @for (err of userForm.name().errors(); track $index) {
+    <span style="color:red">
+        {{ err.message }}
+    </span>
+    }
+    }
     <br/>
     <label for="email">Email:</label>
     <input   type="email" [formField]="userForm.email" />
+    @if (userForm.email().touched() && userForm.email().errors().length) {
+    @for (err of userForm.email().errors(); track $index) {
+    <span style="color:red">
+        {{ err.message }}
+    </span>
+    }
+    }
     <br/>
     <button (click)="onSubmit()" type="button">Submit</button>
 </form>
+
+<br />
+Name : {{userForm.name().value()}} <br />
+Email : {{userForm.email().value()}} <br />

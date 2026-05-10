@@ -1,5 +1,5 @@
 import { Component, signal } from '@angular/core';
-import { form, FormField } from '@angular/forms/signals';
+import { email, form, FormField, required } from '@angular/forms/signals';
 
 @Component({
   selector: 'app-demo1',
@@ -12,7 +12,11 @@ export class Demo1 {
     name: '',
     email: '',
   });
-  userForm = form(this.userModel);
+  userForm = form(this.userModel, (path)=>{
+    required(path.name, { message: 'Name is required'});
+    required(path.email, { message: 'Email is required'});
+    email(path.email, { message: 'Email is not valid'});
+  });
 
   onSubmit() {
     console.log(this.userForm().value());
